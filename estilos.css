@@ -1,23 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Poppins:wght@600&display=swap');
-
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Open Sans', sans-serif;
 }
 
-body{
+body {
     min-height: 100vh;
     overflow-x: hidden;
 }
 
-.container{
+.container {
     position: relative;
     width: 100%;
 }
 
-.navigation{
+.navigation {
     position: fixed;
     width: 300px;
     height: 100%;
@@ -27,33 +26,32 @@ body{
     overflow: hidden;
 }
 
-.navigation.active{
+.navigation.active {
     width: 90px;
 }
 
-.navigation ul{
+.navigation ul {
     position: absolute;
-    top:  0;
+    top: 0;
     left: 0;
     width: 100%;
 }
 
-.navigation ul li{
+.navigation ul li {
     position: relative;
     width: 200%;
     list-style: none;
     border-top-left-radius: 30px;
-    border-bottom-left-radius: 30px ;
+    border-bottom-left-radius: 30px;
 }
 
-
-.navigation ul li:nth-child(1){
+.navigation ul li:nth-child(1) {
     margin-top: 20px;
     margin-bottom: 40px;
     pointer-events: none;
 }
 
-.navigation ul li:nth-child(2){
+.navigation ul li:nth-child(2) {
     margin-top: 20px;
     margin-bottom: 40px;
     pointer-events: none;
@@ -61,7 +59,7 @@ body{
     color: black;
 }
 
-.navigation ul li a{
+.navigation ul li a {
     position: relative;
     display: block;
     width: 100%;
@@ -70,7 +68,7 @@ body{
     color: white;
 }
 
-.navigation ul li a .icon{
+.navigation ul li a .icon {
     position: relative;
     display: block;
     min-width: 60px;
@@ -79,11 +77,11 @@ body{
     text-align: center;
 }
 
-.navigation ul li a .icon ion-icon{
+.navigation ul li a .icon ion-icon {
     font-size: 1.75rem;
 }
 
-.navigation ul li a .title{
+.navigation ul li a .title {
     position: relative;
     padding: 0 10px;
     height: 50px;
@@ -92,7 +90,7 @@ body{
     white-space: nowrap;
 }
 
-.navigation ul li a .title-not{
+.navigation ul li a .title-not {
     position: relative;
     padding: 0 10px;
     height: 50px;
@@ -102,7 +100,7 @@ body{
     color: black;
 }
 
-.navigation ul li a .icon-not{
+.navigation ul li a .icon-not {
     position: relative;
     display: block;
     min-width: 60px;
@@ -111,14 +109,15 @@ body{
     text-align: center;
 }
 
-.navigation ul li a .icon-not ion-icon{
+.navigation ul li a .icon-not ion-icon {
     font-size: 1.75rem;
     color: black;
 }
+
 
 /* Main */
 
-.main{
+.main {
     position: absolute;
     width: calc(100% - 300px);
     left: 300px;
@@ -127,12 +126,12 @@ body{
     transition: 0.5s;
 }
 
-.main.active{
+.main.active {
     width: calc(100% - 80px);
     left: 80px;
 }
 
-.topbar{
+.topbar {
     margin-top: 20px;
     width: 100%;
     height: 60px;
@@ -142,7 +141,7 @@ body{
     padding: 0 10px;
 }
 
-.toggle{
+.toggle {
     position: relative;
     width: 60px;
     height: 60px;
@@ -154,18 +153,18 @@ body{
     color: black;
 }
 
-.search{
+.search {
     position: relative;
     width: 400px;
     margin: 0 10px;
 }
 
-.search label{
+.search label {
     position: relative;
     width: 100%;
 }
 
-.search input{
+.search input {
     width: 100%;
     height: 40px;
     border-radius: 40px;
@@ -175,7 +174,7 @@ body{
     border: 1px solid #000000;
 }
 
-.search label ion-icon{
+.search label ion-icon {
     position: absolute;
     top: 0;
     left: 10px;
@@ -183,7 +182,7 @@ body{
     color: black;
 }
 
-.user{
+.user {
     position: relative;
     margin-right: 12px;
     width: 40px;
@@ -193,7 +192,7 @@ body{
     cursor: pointer;
 }
 
-.user img{
+.user img {
     position: absolute;
     top: 0;
     left: 0;
@@ -203,7 +202,7 @@ body{
     color: black;
 }
 
-.proyectos{
+.proyectos {
     position: relative;
     width: 100%;
     padding: 20px;
@@ -213,7 +212,7 @@ body{
     margin-top: 10px;
 }
 
-.proyectos .allProjects{
+.proyectos .allProjects {
     position: relative;
     display: grid;
     min-height: 500px;
@@ -223,20 +222,20 @@ body{
     border-radius: 20px;
 }
 
-.cardHeader{
+.cardHeader {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
 }
 
-.cardHeader h2{
+.cardHeader h2 {
     font-weight: 600;
     color: #F47C20;
     text-decoration: none;
     font-family: 'Poppins', sans-serif;
 }
 
-.btn{
+.btn {
     position: relative;
     padding: 5px 10px;
     background: #F47C20;
@@ -245,73 +244,73 @@ body{
     border-radius: 6px;
 }
 
-.proyectos table{
+.proyectos table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 10px;
 }
 
-.proyectos table thead td{
+.proyectos table thead td {
     font-weight: 600;
 }
 
-.proyectos .allProjects table tr{
+.proyectos .allProjects table tr {
     color: black;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.proyectos .allProjects table tr:last-child{
+.proyectos .allProjects table tr:last-child {
     border-bottom: none;
 }
 
-.proyectos .allProjects table tbody tr:hover{
-    background:#F47C20;
+.proyectos .allProjects table tbody tr:hover {
+    background: #F47C20;
     color: white;
 }
 
-.proyectos .allProjects table tr td{
+.proyectos .allProjects table tr td {
     padding: 10px;
 }
 
-.proyectos .allProjects table tr td:last-child{
+.proyectos .allProjects table tr td:last-child {
     text-align: end;
 }
 
-.proyectos .allProjects table tr td:nth-child(2){
+.proyectos .allProjects table tr td:nth-child(2) {
     text-align: justify;
 }
 
-.proyectos .allProjects table tr td:nth-child(3){
+.proyectos .allProjects table tr td:nth-child(3) {
     text-align: justify;
 }
 
-.proyectos .allProjects table tr td:nth-child(4){
+.proyectos .allProjects table tr td:nth-child(4) {
     text-align: center;
 }
 
-.proyectos .allProjects table tr td:nth-child(5){
+.proyectos .allProjects table tr td:nth-child(5) {
     text-align: center;
 }
 
-
-.status.delivered{
-    padding:  2px 4px;
+.status.delivered {
+    padding: 2px 4px;
     background: #1CBC2E;
     color: white;
     border-radius: 4px;
     font-weight: 500;
 }
-.status.wait{
-    padding:  2px 4px;
+
+.status.wait {
+    padding: 2px 4px;
     background: #D34F2B;
     color: white;
     border-radius: 4px;
     font-weight: 500;
 }
 
-.center button{
+.center button {
     padding: 10px 20px;
-    border:  none;
+    border: none;
     outline: none;
     cursor: pointer;
     border-radius: 50px;
@@ -339,7 +338,6 @@ body{
     justify-content: center;
     align-items: center;
 }
-
 
 .form-bg {
     background: rgba(0, 0, 0, .4);
@@ -410,9 +408,7 @@ body{
     padding: 10px 15px;
     border-radius: 50px;
     border: 1px solid #676767;
-
 }
-
 
 .close-form {
     border: none;
@@ -432,7 +428,7 @@ body{
     cursor: pointer;
 }
 
-.inscrip{
+.inscrip {
     border: none;
     cursor: pointer;
     outline: none;
@@ -449,10 +445,9 @@ body{
     align-items: center;
 }
 
-.inscrip:hover{
+.inscrip:hover {
     background-color: black;
 }
-
 
 .notifi-item img {
     display: block;
@@ -462,7 +457,7 @@ body{
     border-radius: 50%;
 }
 
-.notifi-item:hover{
+.notifi-item:hover {
     background-color: #753F00;
     border-radius: 8% / 50%;
 }
