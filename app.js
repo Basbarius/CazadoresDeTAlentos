@@ -1,37 +1,28 @@
-// Main functions
-function togglePopUp(popupID) {
-    console.log("Se apreto")
-    let popup = document.getElementById(popupID);
-    if (popup.classList.contains("active")) {
-        popup.classList.remove("active");
-    } else {
-        popup.classList.add("active");
-    }
-}
+/*-----------------------------------------------------------------------------
+ * servidor web
+ *----------------------------------------------------------------------------*/
 
-// Cazador page functions
-let toggle = document.querySelector(".toggle");
-let navigation = document.querySelector(".navigation");
-let main = document.querySelector(".main");
+var express = require('express');
+var app = express();
 
-toggle.onclick = function() {
-    navigation.classList.toggle("active");
-    main.classList.toggle("active");
-}
+app.use(express.static('public'));
 
-let list = document.querySelectorAll(".navigation li");
+app.get('/', function(request,response){
+    response.sendFile(__dirname + '/public/login.html');
+});
 
-function activeLink() {
-    list.forEach((item) =>
-        item.classList.remove("hovered"));
-    this.classList.add("hovered");
-}
+app.get('/login', function(request, response) {
+    response.redirect(301,'/');
+  });
 
-// Talento page functtions
-function showOptions() {
-    document.getElementById("propose-new").style.display = "block";
-}
+app.get('/cazador', function(request,response){
+    response.sendFile(__dirname + '/public/cazador.html');
+});
 
-function hideOptions() {
-    document.getElementById("propose-new").style.display = "none";
-}
+app.get('/talento', function(request,response){
+    response.sendFile(__dirname + '/public/talento.html');
+});
+
+app.listen(3000,function(){
+    console.log("Running Express");
+});
