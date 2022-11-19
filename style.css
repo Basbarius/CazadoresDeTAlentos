@@ -93,6 +93,11 @@ p.section-paragraph {
     display: block;
 }
 
+input::placeholder {
+    color: #adadad;
+    font-family: 'Open sans';
+}
+
 .form {
     position: absolute;
     left: 50%;
@@ -162,7 +167,7 @@ p.section-paragraph {
 }
 
 h2.create {
-    margin: 0;
+    margin: 0 0 20px 0;
 }
 
 .radio {
@@ -238,6 +243,12 @@ label.proveedor-form {
     padding: 0px 70px;
     background-color: #F47C20;
     color: white;
+}
+
+label.password-sign-up-style {
+    font-size: 12px;
+    line-height: 20px;
+    font-family: 'Open Sans', sans-serif;
 }
 
 .close-form {
