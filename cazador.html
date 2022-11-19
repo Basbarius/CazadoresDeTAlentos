@@ -31,7 +31,7 @@
 
                 <li>
                     <div class="notifi-box" id="box">
-                        <div class="notifi-item">
+                        <div class="notifi-item" onclick="togglePopUp('form-bg-create-date')">
                             <img src="Img/perfil2.jpg" alt="img">
                             <div class="text">
                                 <h4>Elias Abdurrahman</h4>
@@ -39,7 +39,7 @@
                             </div>
                         </div>
 
-                        <div class="notifi-item">
+                        <div class="notifi-item" onclick="togglePopUp('form-bg-create-date')">
                             <img src="Img/perfil2.jpg" alt="img">
                             <div class="text">
                                 <h4>John Doe</h4>
@@ -47,7 +47,7 @@
                             </div>
                         </div>
 
-                        <div class="notifi-item">
+                        <div class="notifi-item" onclick="togglePopUp('form-bg-create-date')">
                             <img src="Img/perfil.jpg" alt="img">
                             <div class="text">
                                 <h4>Emad Ali</h4>
@@ -55,7 +55,7 @@
                             </div>
                         </div>
 
-                        <div class="notifi-item">
+                        <div class="notifi-item" onclick="togglePopUp('form-bg-create-date')">
                             <img src="Img/perfil2.jpg" alt="img">
                             <div class="text">
                                 <h4>Ekram Abu </h4>
@@ -63,14 +63,14 @@
                             </div>
                         </div>
 
-                        <div class="notifi-item">
+                        <div class="notifi-item" onclick="togglePopUp('form-bg-create-date')">
                             <img src="Img/perfil.jpg" alt="img">
                             <div class="text">
                                 <h4>Jane Doe</h4>
                                 <p>@lorem ipsum dolor sit amet</p>
                             </div>
                         </div>
-                        <div class="notifi-item">
+                        <div class="notifi-item" onclick="togglePopUp('form-bg-create-date')">
                             <img src="Img/perfil.jpg" alt="img">
                             <div class="text">
                                 <h4>Emma Sun</h4>
@@ -107,7 +107,7 @@
                         <h2>Mis proyectos</h2>
                         <!--<a href="#" class="btn"> Añadir proyecto</a>-->
                         <div class="center">
-                            <button class="show-popup" id="show-popup">Añadir proyecto</button>
+                            <button class="show-popup" id="show-popup" onclick="togglePopUp('form-bg-new-proyect')">Añadir proyecto</button>
                         </div>
                     </div>
                     <table>
@@ -169,7 +169,7 @@
     </div>
 
     <!-- Create Project -->
-    <section class="form-bg">
+    <section class="form-bg" id="form-bg-new-proyect">
         <!-- Descomentar el de abajo para mostrar popup y comentar el de arriba -->
         <!-- <section class="form-bg active"> -->
         <div class="form new-project">
@@ -178,21 +178,21 @@
             <form class="form-content" action="">
 
                 <label for="nombre-proyecto">Nombre del proyecto</label>
-                <input type="text" name="nombre-proyecto" id="nombre-proyecto" required>
+                <input type="text" name="nombre" id="nombre-proyecto" required>
 
                 <label for="coordenadas-proyecto">Coordenadas</label>
-                <input type="text" name="correo" id="coordenadas-proyecto" required>
+                <input type="text" name="coordenadas" id="coordenadas-proyecto" required>
 
                 <label for="tipo-proyecto">Tipo de proyecto</label>
                 <input type="text" name="tipo" id="tipo-proyecto" required>
 
                 <label for="giro-proyecto">Giro del proyecto</label>
-                <textarea type="text" name="giro-proyecto" id="giro-proyecto" required></textarea>
+                <textarea type="text" name="giro" id="giro-proyecto" required></textarea>
 
 
                 <button type="submit" class="button form-sign-up">
                     Crear proyecto </button>
-                <div class="close-form">
+                <div class="close-form" onclick="togglePopUp('form-bg-new-proyect')">
                     <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <polygon fill="inherit"
                             points="11.649 9.882 18.262 3.267 16.495 1.5 9.881 8.114 3.267 1.5 1.5 3.267 8.114 9.883 1.5 16.497 3.267 18.264 9.881 11.65 16.495 18.264 18.262 16.497">
@@ -204,28 +204,35 @@
     </section>
 
     <!-- Create Date -->
-    <section class="form-bg active">
+    <section class="form-bg active" id="form-bg-create-date">
         <!-- Descomentar el de abajo para mostrar popup y comentar el de arriba -->
         <!-- <section class="form-bg active"> -->
         <div class="form">
 
-            <h2 class="create">Postulación Nueva!</h2>
-            <p><a href="">Esta Persona</a> se ha postulado a su <a href="">Proyecto</a>. Si le interesa su perfil, proponga una cita!</p>
-            <form class="form-content" action="">
+            <h2 class="create">¡Nueva postulación!</h2>
+            <div class="center-p">
+                <p><a href="">Esta Persona</a> se ha postulado a su <a href="">Proyecto</a>. Si le interesa su perfil, ¡proponga una cita!</p>
+            </div>
+            <form class="form-content-date" action="">
 
-                <label for="nombre-sign-up">Fecha y hora de la Cita</label>
                 <div class="date-container">
-                    <input type="date" name="fecha" id="fecha-cita" required>
-                    <input type="time" name="hora" id="hora-cita" required>
+                    <div class="date">
+                        <label for="fecha-cita">Fecha de la Cita</label>
+                        <input type="date" name="fecha" id="fecha-cita" required>
+                    </div>
+                    <div class="time">
+                        <label for="hora-cita">Hora de la Cita</label>
+                        <input type="time" name="hora" id="hora-cita" required>
+                    </div>
                 </div>
 
                 <div class="confirmation-container">
                     <button type="submit" class="button negation">
-                        Negar Postulación </button>
+                        Negar postulación </button>
                     <button type="submit" class="button form-sign-up">
-                        Proponer Cita </button>
+                        Proponer cita </button>
                 </div>
-                <div class="close-form">
+                <div class="close-form" onclick="togglePopUp('form-bg-create-date')">
                     <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <polygon fill="inherit"
                             points="11.649 9.882 18.262 3.267 16.495 1.5 9.881 8.114 3.267 1.5 1.5 3.267 8.114 9.883 1.5 16.497 3.267 18.264 9.881 11.65 16.495 18.264 18.262 16.497">

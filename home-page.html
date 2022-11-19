@@ -22,11 +22,10 @@
                 <div class="col">
                     <h1 class="section-title">Cazadores de talento</h1>
                     <p class="section-paragraph">Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quas iste quae eaque odio ab culpa asperiores quam. Sequi deleniti autem deserunt nesciunt ea totam quisquam perspiciatis vel dignissimos ex.</p>
-                    <button class="button btn-sign-in" onclick="toggleLogIn()">
+                    <button class="button btn-sign-in" onclick="togglePopUp('form-bg-log-in')">
                         Iniciar sesión </button>
-                    <button class="button btn-create-account" onclick="toggleSignUp()">
+                    <button class="button btn-create-account" onclick="togglePopUp('form-bg-sign-up')">
                         Crear cuenta </button>
-
                 </div>
             </div>
         </section>
@@ -48,7 +47,7 @@
                     <button type="submit" class="button form-log-in">
                         Iniciar sesión </button>
                     <a href="#" class="forgot">¿Olvidaste tu contraseña?</a>
-                    <div class="close-form" onclick="toggleLogIn()">
+                    <div class="close-form" onclick="togglePopUp('form-bg-log-in')">
                         <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             <polygon fill="inherit"
                                 points="11.649 9.882 18.262 3.267 16.495 1.5 9.881 8.114 3.267 1.5 1.5 3.267 8.114 9.883 1.5 16.497 3.267 18.264 9.881 11.65 16.495 18.264 18.262 16.497">
@@ -90,7 +89,7 @@
 
                     <button type="submit" class="button form-sign-up">
                         Crear cuenta </button>
-                    <div class="close-form" onclick="toggleSignUp()">
+                    <div class="close-form" onclick="togglePopUp('form-bg-sign-up')">
                         <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             <polygon fill="inherit"
                                 points="11.649 9.882 18.262 3.267 16.495 1.5 9.881 8.114 3.267 1.5 1.5 3.267 8.114 9.883 1.5 16.497 3.267 18.264 9.881 11.65 16.495 18.264 18.262 16.497">

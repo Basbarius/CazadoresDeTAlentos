@@ -31,7 +31,7 @@
 
                 <li>
                     <div class="notifi-box" id="box">
-                        <div class="notifi-item">
+                        <div class="notifi-item" onclick="togglePopUp('form-gb-response-date')">
                             <img src="Img/perfil2.jpg" alt="img">
                             <div class="text">
                                 <h4>Elias Abdurrahman</h4>
@@ -39,7 +39,7 @@
                             </div>
                         </div>
 
-                        <div class="notifi-item">
+                        <div class="notifi-item" onclick="togglePopUp('form-gb-response-date')">
                             <img src="Img/perfil2.jpg" alt="img">
                             <div class="text">
                                 <h4>John Doe</h4>
@@ -47,7 +47,7 @@
                             </div>
                         </div>
 
-                        <div class="notifi-item">
+                        <div class="notifi-item" onclick="togglePopUp('form-gb-response-date')">
                             <img src="Img/perfil.jpg" alt="img">
                             <div class="text">
                                 <h4>Emad Ali</h4>
@@ -55,7 +55,7 @@
                             </div>
                         </div>
 
-                        <div class="notifi-item">
+                        <div class="notifi-item" onclick="togglePopUp('form-gb-response-date')">
                             <img src="Img/perfil2.jpg" alt="img">
                             <div class="text">
                                 <h4>Ekram Abu </h4>
@@ -63,14 +63,14 @@
                             </div>
                         </div>
 
-                        <div class="notifi-item">
+                        <div class="notifi-item" onclick="togglePopUp('form-gb-response-date')">
                             <img src="Img/perfil.jpg" alt="img">
                             <div class="text">
                                 <h4>Jane Doe</h4>
                                 <p>@lorem ipsum dolor sit amet</p>
                             </div>
                         </div>
-                        <div class="notifi-item">
+                        <div class="notifi-item" onclick="togglePopUp('form-gb-response-date')">
                             <img src="Img/perfil.jpg" alt="img">
                             <div class="text">
                                 <h4>Emma Sun</h4>
@@ -122,7 +122,8 @@
                             <tr>
                                 <td>Proyecto AMEXTRA</td>
                                 <td>Se trata de una organización sin fines de lucro que se encarga de ayudar a las comunidades rurales más vulnerables de México a través de distintos programas de apoyo que son financiados a través de donaciones, dichos recursos
-                                    provienen de todos aquellos que deciden convertirse en colaboradores de la organización.</td>
+                                    provienen de todos aquellos que deciden convertirse en colaboradores de la organización.
+                                </td>
                                 <td>La Otra Banda 54-Casa C, 01000 Ciudad de México, Ciudad de México</td>
                                 <td><span class="status delivered">Disponible</span></td>
                                 <td><button class="inscrip">Inscribirse</button></td>
@@ -166,36 +167,46 @@
     </div>
 
     <!-- Accept/decline date -->
-    <section class="form-bg active">
+    <section class="form-bg" id="form-gb-response-date">
         <!-- Descomentar el de abajo para mostrar popup y comentar el de arriba -->
         <!-- <section class="form-bg active"> -->
         <div class="form">
 
-            <h2 class="create">Postulación Aceptada!</h2>
-            <p>El responsable de este <a href="">Proyecto</a> ha aceptado tu postulación y quiere tener una cita contigo. ¿Funciona para ti?</p>
+            <h2 class="create">¡Postulación aceptada!</h2>
+            <div class="center-p">
+                <p>El responsable de este <a href="">Proyecto</a> ha aceptado tu postulación y quiere tener una cita contigo. ¿Funciona para ti?</p>
+            </div>
             <h3><b>Fecha propuesta:</b> 02-Nov-2022, 02:19 PM</h3>
-            <form class="form-content" action="">
+            <form class="form-content-date" action="">
                 <div class="radio radio-cita">
                     <input type="radio" name="usuario" id="cazador-form" required>
-                    <label for="cazador-form" class="cazador-form">Definitivamente!</label>
+                    <label for="cazador-form" class="cazador-form" onclick="hideOptions()">¡Definitivamente!</label>
 
                     <input type="radio" name="usuario" id="proveedor-form" required>
-                    <label for="proveedor-form" class="proveedor-form">Talvez no...</label>
+                    <label for="proveedor-form" class="proveedor-form" onclick="showOptions()">Talvez no...</label>
                 </div>
-
-                <label for="nombre-sign-up">Proponga una fecha y hora alternativa para la Cita</label>
-                <div class="date-container">
-                    <input type="date" name="fecha" id="fecha-cita" required>
-                    <input type="time" name="hora" id="hora-cita" required>
+                <div id="propose-new">
+                    <label for="nombre-sign-up" class="propose">Proponga una fecha y hora alternativa para la
+                        cita</label>
+                    <div class="date-container">
+                        <div class="date">
+                            <label for="fecha-cita">Fecha de la Cita</label>
+                            <input type="date" name="fecha" id="fecha-cita" required>
+                        </div>
+                        <div class="time">
+                            <label for="hora-cita">Hora de la Cita</label>
+                            <input type="time" name="hora" id="hora-cita" required>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="confirmation-container">
-                    <button type="submit" class="button negation">
+                    <button type="submit" class="button negation-talento">
                         Cancelar </button>
                     <button type="submit" class="button form-sign-up">
                         Responder </button>
                 </div>
-                <div class="close-form">
+                <div class="close-form" onclick="togglePopUp('form-gb-response-date'); hideOptions()">
                     <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <polygon fill="inherit"
                             points="11.649 9.882 18.262 3.267 16.495 1.5 9.881 8.114 3.267 1.5 1.5 3.267 8.114 9.883 1.5 16.497 3.267 18.264 9.881 11.65 16.495 18.264 18.262 16.497">
@@ -208,8 +219,8 @@
 
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-
-    <script type="text/javascript">
+    <script type="text/javascript" src="app.js"></script>
+    <!-- <script type="text/javascript">
         let toggle = document.querySelector('.toggle');
         let navigation = document.querySelector('.navigation');
         let main = document.querySelector('.main');
@@ -230,7 +241,7 @@
             item.addEventListener('mouseover', activeLink));
 
         // ------------------------------------------------------------------
-    </script>
+    </script> -->
 
 </body>
 

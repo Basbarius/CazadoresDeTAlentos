@@ -205,8 +205,36 @@ label.proveedor-form {
     border: 1px solid #F47C20;
 }
 
+.form-content-date input[type="radio"] {
+    display: none;
+}
+
+.form-content-date .radio label {
+    color: #676767;
+    background-color: #FFFFFF;
+    display: inline-block;
+    position: relative;
+    border: 1px solid #676767;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: 200ms;
+    margin: 25px 0 0 0;
+}
+
+.form-content-date .radio label:hover {
+    color: #FFFFFF;
+    background-color: #F47C20;
+    border: 1px solid #F47C20;
+}
+
+.form-content-date input[type="radio"]:checked+label {
+    color: #FFFFFF;
+    background-color: #F47C20;
+    border: 1px solid #F47C20;
+}
+
 .form .form-sign-up {
-    margin: 0 auto 16px;
+    margin: 0 20px 16px;
     padding: 0px 70px;
     background-color: #F47C20;
     color: white;
@@ -270,9 +298,17 @@ a:hover {
 
 .negation {
     background-color: white;
-    color: #676767;
+    color: #000000;
     border: #F47C20 solid 2px;
-    margin: 0 auto 16px;
+    margin: 0 20px 16px 0;
+    padding: 0px 60px;
+}
+
+.negation-talento {
+    background-color: white;
+    color: #000000;
+    border: #F47C20 solid 2px;
+    margin: 0 20px 0 20px;
     padding: 0px 70px;
 }
 
@@ -296,4 +332,13 @@ h3 {
 .new-project input,
 textarea {
     width: auto;
+}
+
+#propose-new {
+    display: none;
+}
+
+#propose-new .propose {
+    color: #000000;
+    font-weight: 800;
 }
