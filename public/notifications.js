@@ -4,8 +4,25 @@ const getNotificaciones = async () => {
   return datos
 }
 
-const sendNotificacion = (e) => {
-  // e.preventDefault();
+const sendNotificacion = async (event) => {
+  let notificacion = event.data
+  body = JSON.stringify({
+    id: notificacion.id,
+    idProveedor: notificacion.idProveedor,
+    idProyecto: notificacion.idProyecto,
+    nombreProyecto: notificacion.nombreProyecto,
+    fecha: $(`#${notificacion.id} #fecha-cita`).val(),
+    hora: $(`#${notificacion.id} #hora-cita`).val()
+  })
+  fetch("/talento/notificaciones", {
+    method: "POST",
+    body: body,
+    headers:{          
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    }
+  })
+  togglePopUp(notificacion.id)
 }
 
 const mostrarNotificaciones = (datos) => {
@@ -44,7 +61,7 @@ const mostrarNotificaciones = (datos) => {
                 <div class="confirmation-container">
                     <button type="submit" class="button negation">
                         Negar postulación </button>
-                    <button type="submit" class="button form-sign-up" onclick="sendNotificacion();togglePopUp('${notificacion.id}')">
+                    <button type="submit" class="button form-sign-up">
                         Proponer cita </button>
                 </div>
                 <div class="close-form" onclick="togglePopUp('${notificacion.id}')">
@@ -58,6 +75,7 @@ const mostrarNotificaciones = (datos) => {
         </div>
       </section>`
     )
+    $(`#${notificacion.id} .form-sign-up`).click(notificacion, sendNotificacion);
   })
 }
 

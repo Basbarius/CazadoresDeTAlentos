@@ -22,7 +22,7 @@ let notificacionesCazador = [
 
 let notificacionesTalento = [
   {
-      idTalento: '@Alejandro',
+      idTalento: '@alejandro',
       notificaciones: [
           {
               id: '789ghi',
@@ -34,7 +34,7 @@ let notificacionesTalento = [
       ]
   },
   {
-    idTalento: '@Dulce',
+    idTalento: '@dulce',
     notificaciones: [
 
     ]
@@ -50,19 +50,19 @@ const sendNotificacionesTalento = function(request, response) {
 }
 
 const postNotificacionTalento = function(request, response) {
-  console.log(request)
-  // let notificacionNueva = request.data;
-  // notificacionesTalento.forEach(talento => {
-  //   if (talento.idTalento === notificacionNueva.idTalento) {
-  //     talento.notificaciones.push({
-  //       id: notificacionNueva.id,
-  //       idProyecto: notificacionNueva.idProyecto,
-  //       nombreProyecto: notificacionNueva.nombreProyecto,
-  //       fecha: notificacionNueva.fecha,
-  //       hora: notificacionNueva.hora
-  //     })
-  //   }
-  // })
+  console.log(request.body)
+  let notificacionNueva = request.body;
+  notificacionesTalento.forEach(talento => {
+    if (talento.idTalento === notificacionNueva.idProveedor) {
+      talento.notificaciones.push({
+        id: notificacionNueva.id,
+        idProyecto: notificacionNueva.idProyecto,
+        nombreProyecto: notificacionNueva.nombreProyecto,
+        fecha: notificacionNueva.fecha,
+        hora: notificacionNueva.hora
+      })
+    }
+  })
 }
 
 module.exports = { sendNotificacionesCazador, sendNotificacionesTalento, postNotificacionTalento };

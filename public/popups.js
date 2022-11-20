@@ -8,15 +8,15 @@ function togglePopUp(popupID) {
     }
 }
 
-// Cazador page functions
-let toggle = document.querySelector(".toggle");
-let navigation = document.querySelector(".navigation");
-let main = document.querySelector(".main");
+// // Cazador page functions
+// let toggle = document.querySelector(".toggle");
+// let navigation = document.querySelector(".navigation");
+// let main = document.querySelector(".main");
 
-toggle.onclick = function() {
-    navigation.classList.toggle("active");
-    main.classList.toggle("active");
-}
+// toggle.onclick = function() {
+//     navigation.classList.toggle("active");
+//     main.classList.toggle("active");
+// }
 
 let list = document.querySelectorAll(".navigation li");
 
