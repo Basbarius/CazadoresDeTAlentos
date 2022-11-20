@@ -26,6 +26,8 @@ let notificacionesTalento = [
       notificaciones: [
           {
               id: '789ghi',
+              idCazador: '@bas',
+              nombreCazador: 'Bas',
               idProyecto: 'proyecto2',
               nombreProyecto: 'Proyecto 2',
               fecha: '12-10-2022',
@@ -46,7 +48,7 @@ const sendNotificacionesCazador = function(request, response) {
 }
 
 const sendNotificacionesTalento = function(request, response) {
-  response.json(notificacionesCazador[0].notificaciones)
+  response.json(notificacionesTalento[0].notificaciones)
 }
 
 const postNotificacionTalento = function(request, response) {
