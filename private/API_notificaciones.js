@@ -1,6 +1,6 @@
 let notificacionesCazador = [
   {
-      idCazador: '@Bas',
+      idCazador: '@bas',
       notificaciones: [
           {
               id: '123abc',
@@ -44,22 +44,49 @@ let notificacionesTalento = [
 ]
 
 const sendNotificacionesCazador = function(request, response) {
-  response.json(notificacionesCazador[0].notificaciones)
+  let notificaciones = [];
+  notificacionesCazador.forEach(cazador => {
+    if (cazador.idCazador === request.params.id){
+      notificaciones = cazador.notificaciones;
+    }
+  })
+  response.json(notificaciones)
+}
+
+const deleteNotificacionCazador = function(request, response) {
+  notificacionesCazador.forEach(cazador => {
+    if (cazador.idCazador === request.params.id) {
+      cazador.notificaciones.forEach(notificacion => {
+        if (notificacion.id === request.params.idNotificacion) {
+          cazador.notificaciones.splice(cazador.notificaciones.indexOf(notificacion), 1);
+          console.log('deleted')
+        }
+      })
+    }
+  })
 }
 
 const sendNotificacionesTalento = function(request, response) {
-  response.json(notificacionesTalento[0].notificaciones)
+  let notificaciones = [];
+  notificacionesTalento.forEach(talento => {
+    if (talento.idTalento === request.params.id){
+      notificaciones = talento.notificaciones;
+    }
+  })
+  response.json(notificaciones)
 }
 
 const postNotificacionTalento = function(request, response) {
   console.log(request.body)
   let notificacionNueva = request.body;
   notificacionesTalento.forEach(talento => {
-    if (talento.idTalento === notificacionNueva.idProveedor) {
-      talento.notificaciones.push({
+    if (talento.idTalento === request.params.id) {
+      talento.notificaciones.unshift({
         id: notificacionNueva.id,
         idProyecto: notificacionNueva.idProyecto,
         nombreProyecto: notificacionNueva.nombreProyecto,
+        idCazador: notificacionNueva.idCazador,
+        nombreCazador: notificacionNueva.nombreCazador,
         fecha: notificacionNueva.fecha,
         hora: notificacionNueva.hora
       })
@@ -67,4 +94,4 @@ const postNotificacionTalento = function(request, response) {
   })
 }
 
-module.exports = { sendNotificacionesCazador, sendNotificacionesTalento, postNotificacionTalento };
+module.exports = { sendNotificacionesCazador, deleteNotificacionCazador, sendNotificacionesTalento, postNotificacionTalento };

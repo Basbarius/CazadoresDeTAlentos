@@ -1,11 +1,11 @@
-const getNotificacionesCazador = async () => {
-  let notificaciones = await fetch ("/cazador/notificaciones")
+const getNotificacionesCazador = async (id) => {
+  let notificaciones = await fetch (`/cazador/${id}/notificaciones`)
   let datos = await notificaciones.json()
   return datos
 }
 
-const getNotificacionesTalento = async () => {
-  let notificaciones = await fetch ("/talento/notificaciones")
+const getNotificacionesTalento = async (id) => {
+  let notificaciones = await fetch (`/talento/${id}/notificaciones`)
   let datos = await notificaciones.json()
   return datos
 }
@@ -14,13 +14,14 @@ const sendNotificacionCazador = async (event) => {
   let notificacion = event.data
   body = JSON.stringify({
     id: notificacion.id,
-    idProveedor: notificacion.idProveedor,
     idProyecto: notificacion.idProyecto,
+    idCazador: '@bas',
+    nombreCazador: 'Bas',
     nombreProyecto: notificacion.nombreProyecto,
     fecha: $(`#${notificacion.id} #fecha-cita`).val(),
     hora: $(`#${notificacion.id} #hora-cita`).val()
   })
-  fetch("/talento/notificaciones", {
+  fetch(`/talento/${notificacion.idProveedor}/notificaciones`, {
     method: "POST",
     body: body,
     headers:{          
@@ -28,7 +29,11 @@ const sendNotificacionCazador = async (event) => {
       'Content-Type': 'application/json'
     }
   })
-  togglePopUp(notificacion.id)
+  fetch(`cazador/@bas/notificaciones/${notificacion.id}`, {
+    method: "DELETE"
+  });
+  togglePopUp(notificacion.id);
+  window.location.reload();
 }
 
 const mostrarNotificacionesCazador = (datos) => {
@@ -149,9 +154,8 @@ const mostrarNotificacionesTalento = (datos) => {
 }
 
 if (window.location.pathname.endsWith('cazador')){
-  getNotificacionesCazador().then(datos => mostrarNotificacionesCazador(datos));
+  getNotificacionesCazador('@bas').then(datos => mostrarNotificacionesCazador(datos));
 } 
 else if (window.location.pathname.endsWith('talento')) {
-
-  getNotificacionesTalento().then(datos => mostrarNotificacionesTalento(datos));
+  getNotificacionesTalento('@alejandro').then(datos => mostrarNotificacionesTalento(datos));
 }

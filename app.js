@@ -1,7 +1,8 @@
 /*-----------------------------------------------------------------------------
  * servidor web
 *----------------------------------------------------------------------------*/
-const { sendNotificacionesCazador, sendNotificacionesTalento, postNotificacionTalento } = require("./private/API_notificaciones");
+const { sendNotificacionesCazador, deleteNotificacionCazador, 
+    sendNotificacionesTalento, postNotificacionTalento } = require("./private/API_notificaciones");
 
 var express = require('express');
 var bodyParser = require('body-parser')
@@ -27,15 +28,16 @@ app.get('/cazador', function(request,response){
     response.sendFile(__dirname + '/public/cazador.html');
 });
 
-app.get('/cazador/notificaciones', sendNotificacionesCazador);
+app.get('/cazador/:id/notificaciones', sendNotificacionesCazador);
+app.delete('/cazador/:id/notificaciones/:idNotificacion', deleteNotificacionCazador);
 
 
 app.get('/talento', function(request,response){
     response.sendFile(__dirname + '/public/talento.html');
 });
 
-app.get('/talento/notificaciones', sendNotificacionesTalento);
-app.post('/talento/notificaciones', postNotificacionTalento);
+app.get('/talento/:id/notificaciones', sendNotificacionesTalento);
+app.post('/talento/:id/notificaciones', postNotificacionTalento);
 
 app.listen(3000,function(){
     console.log("Running Express");
