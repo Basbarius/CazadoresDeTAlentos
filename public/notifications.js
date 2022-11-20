@@ -4,6 +4,10 @@ const getNotificaciones = async () => {
   return datos
 }
 
+const sendNotificacion = (e) => {
+  // e.preventDefault();
+}
+
 const mostrarNotificaciones = (datos) => {
   datos.forEach(notificacion => {
     $('.notifi-box').append(
@@ -24,7 +28,7 @@ const mostrarNotificaciones = (datos) => {
             <div class="center-p">
                 <p><a href="">${notificacion.nombreProveedor}</a> se ha postulado al <a href="">${notificacion.nombreProyecto}</a>. Si le interesa su perfil, ¡proponga una cita!</p>
             </div>
-            <form class="form-content-date" action="">
+            <form class="form-content-date" onsubmit="return false">
 
                 <div class="date-container">
                     <div class="date">
@@ -40,7 +44,7 @@ const mostrarNotificaciones = (datos) => {
                 <div class="confirmation-container">
                     <button type="submit" class="button negation">
                         Negar postulación </button>
-                    <button type="submit" class="button form-sign-up">
+                    <button type="submit" class="button form-sign-up" onclick="sendNotificacion();togglePopUp('${notificacion.id}')">
                         Proponer cita </button>
                 </div>
                 <div class="close-form" onclick="togglePopUp('${notificacion.id}')">
