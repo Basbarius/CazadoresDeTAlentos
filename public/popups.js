@@ -1,5 +1,6 @@
 // Main functions
 function togglePopUp(popupID) {
+    console.log(popupID)
     let popup = document.getElementById(popupID);
     if (popup.classList.contains("active")) {
         popup.classList.remove("active");

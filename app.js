@@ -3,7 +3,7 @@
 *----------------------------------------------------------------------------*/
 const { sendNotificacionesCazador, deleteNotificacionCazador, 
     sendNotificacionesTalento, deleteNotificacionTalento, 
-    postNotificacionTalento } = require("./private/API_notificaciones");
+    postNotificacionTalento, postNotificacionCazador } = require("./private/API_notificaciones");
 
 var express = require('express');
 var bodyParser = require('body-parser')
@@ -30,6 +30,7 @@ app.get('/cazador/:id', function(request,response){
 });
 
 app.get('/cazador/:id/notificaciones', sendNotificacionesCazador);
+app.post('/cazador/:id/notificaciones', postNotificacionCazador)
 app.delete('/cazador/:id/notificaciones/:idNotificacion', deleteNotificacionCazador);
 
 
