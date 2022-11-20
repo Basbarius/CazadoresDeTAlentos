@@ -66,6 +66,19 @@ const deleteNotificacionCazador = function(request, response) {
   })
 }
 
+const deleteNotificacionTalento = function(request, response) {
+  notificacionesTalento.forEach(talento => {
+    if (talento.idProveedor === request.params.id) {
+      talento.notificaciones.forEach(notificacion => {
+        if (notificacion.id === request.params.idNotificacion) {
+          talento.notificaciones.splice(talento.notificaciones.indexOf(notificacion), 1);
+          console.log('deleted')
+        }
+      })
+    }
+  })
+}
+
 const sendNotificacionesTalento = function(request, response) {
   let notificaciones = [];
   notificacionesTalento.forEach(talento => {
@@ -94,4 +107,5 @@ const postNotificacionTalento = function(request, response) {
   })
 }
 
-module.exports = { sendNotificacionesCazador, deleteNotificacionCazador, sendNotificacionesTalento, postNotificacionTalento };
+module.exports = { sendNotificacionesCazador, deleteNotificacionCazador, sendNotificacionesTalento, deleteNotificacionTalento,
+   postNotificacionTalento };

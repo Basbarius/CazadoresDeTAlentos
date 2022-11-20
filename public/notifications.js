@@ -15,7 +15,7 @@ const sendNotificacionCazador = async (event) => {
   body = JSON.stringify({
     id: notificacion.id,
     idProyecto: notificacion.idProyecto,
-    idCazador: '@bas',
+    idCazador: path.substring(path.lastIndexOf('/') + 1),
     nombreCazador: 'Bas',
     nombreProyecto: notificacion.nombreProyecto,
     fecha: $(`#${notificacion.id} #fecha-cita`).val(),
@@ -29,7 +29,7 @@ const sendNotificacionCazador = async (event) => {
       'Content-Type': 'application/json'
     }
   })
-  fetch(`cazador/@bas/notificaciones/${notificacion.id}`, {
+  fetch(`${window.location.pathname}/notificaciones/${notificacion.id}`, {
     method: "DELETE"
   });
   togglePopUp(notificacion.id);
@@ -40,7 +40,7 @@ const mostrarNotificacionesCazador = (datos) => {
   datos.forEach(notificacion => {
     $('.notifi-box').append(
       `<div class="notifi-item" onclick="togglePopUp('${notificacion.id}')">
-        <img src="Img/perfil2.jpg" alt="img">
+        <img src="/Img/perfil2.jpg" alt="img">
         <div class="text">
           <h4>${notificacion.nombreProveedor}</h4>
           <p>${notificacion.idProveedor}</p>
@@ -94,7 +94,7 @@ const mostrarNotificacionesTalento = (datos) => {
   datos.forEach(notificacion => {
     $('.notifi-box').append(
       `<div class="notifi-item" onclick="togglePopUp('${notificacion.id}')">
-        <img src="Img/perfil2.jpg" alt="img">
+        <img src="/Img/perfil2.jpg" alt="img">
         <div class="text">
           <h4>${notificacion.nombreCazador}</h4>
           <p>${notificacion.idCazador}</p>
@@ -153,9 +153,10 @@ const mostrarNotificacionesTalento = (datos) => {
   })
 }
 
-if (window.location.pathname.endsWith('cazador')){
-  getNotificacionesCazador('@bas').then(datos => mostrarNotificacionesCazador(datos));
+let path = window.location.pathname
+if (path.includes('cazador')){
+  getNotificacionesCazador(path.substring(path.lastIndexOf('/') + 1)).then(datos => mostrarNotificacionesCazador(datos));
 } 
-else if (window.location.pathname.endsWith('talento')) {
-  getNotificacionesTalento('@alejandro').then(datos => mostrarNotificacionesTalento(datos));
+else if (window.location.pathname.includes('talento')) {
+  getNotificacionesTalento(path.substring(path.lastIndexOf('/') + 1)).then(datos => mostrarNotificacionesTalento(datos));
 }
