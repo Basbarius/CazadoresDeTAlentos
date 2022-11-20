@@ -3,18 +3,20 @@ let notificacionesCazador = [
       idCazador: '@bas',
       notificaciones: [
           {
-              id: '123abc',
-              idProveedor: '@alejandro',
-              nombreProveedor: 'Alejandro Oliva',
-              idProyecto: 'proyecto1',
-              nombreProyecto: 'Proyecto 1'
+            type: 'postulacion',
+            id: '123abc',
+            idProveedor: '@alejandro',
+            nombreProveedor: 'Alejandro Oliva',
+            idProyecto: 'proyecto1',
+            nombreProyecto: 'Proyecto 1'
           },
           {
-              id: '456dfe',
-              idProveedor: '@dulce',
-              nombreProveedor: 'Dulce Garcia',
-              idProyecto: 'proyecto1',
-              nombreProyecto: 'Proyecto 1'
+            type: 'postulacion',
+            id: '456dfe',
+            idProveedor: '@dulce',
+            nombreProveedor: 'Dulce Garcia',
+            idProyecto: 'proyecto1',
+            nombreProyecto: 'Proyecto 1'
           }
       ]
   }
@@ -122,13 +124,27 @@ const postNotificacionCazador = function(request, response) {
   let notificacionNueva = request.body;
   notificacionesCazador.forEach(cazador => {
     if (cazador.idCazador === request.params.id) {
-      cazador.notificaciones.unshift({
-        id: notificacionNueva.id,
-        idProyecto: notificacionNueva.idProyecto,
-        nombreProyecto: notificacionNueva.nombreProyecto,
-        idProveedor: notificacionNueva.idProveedor,
-        nombreProveedor: notificacionNueva.nombreProveedor
-      })
+      if (notificacionNueva.type === 'postulacion') {
+        cazador.notificaciones.unshift({
+          type: notificacionNueva.type,
+          id: notificacionNueva.id,
+          idProyecto: notificacionNueva.idProyecto,
+          nombreProyecto: notificacionNueva.nombreProyecto,
+          idProveedor: notificacionNueva.idProveedor,
+          nombreProveedor: notificacionNueva.nombreProveedor
+        })
+      } else if(notificacionNueva.type === 'confirmacion') {
+        cazador.notificaciones.unshift({
+          type: notificacionNueva.type,
+          id: notificacionNueva.id,
+          idProyecto: notificacionNueva.idProyecto,
+          nombreProyecto: notificacionNueva.nombreProyecto,
+          idProveedor: notificacionNueva.idProveedor,
+          nombreProveedor: notificacionNueva.nombreProveedor,
+          fecha: notificacionNueva.fecha,
+          hora: notificacionNueva.hora
+        })
+      }
     }
   })
 }
