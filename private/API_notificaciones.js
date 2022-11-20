@@ -114,6 +114,28 @@ const postNotificacionTalento = function(request, response) {
           nombreCazador: notificacionNueva.nombreCazador,
           nombreProyecto: notificacionNueva.nombreProyecto
         })
+      } else if (notificacionNueva.type === 'confirmacion') {
+        talento.notificaciones.unshift({
+          type: notificacionNueva.type,
+          id: notificacionNueva.id,
+          idProyecto: notificacionNueva.idProyecto,
+          nombreProyecto: notificacionNueva.nombreProyecto,
+          idCazador: notificacionNueva.idCazador,
+          nombreCazador: notificacionNueva.nombreCazador,
+          fecha: notificacionNueva.fecha,
+          hora: notificacionNueva.hora
+        })
+      } else if (notificacionNueva.type === 'nueva-propuesta') {
+        talento.notificaciones.unshift({
+          type: notificacionNueva.type,
+          id: notificacionNueva.id,
+          idProyecto: notificacionNueva.idProyecto,
+          nombreProyecto: notificacionNueva.nombreProyecto,
+          idCazador: notificacionNueva.idCazador,
+          nombreCazador: notificacionNueva.nombreCazador,
+          fecha: notificacionNueva.fecha,
+          hora: notificacionNueva.hora
+        })
       }
     }
   })
@@ -134,6 +156,17 @@ const postNotificacionCazador = function(request, response) {
           nombreProveedor: notificacionNueva.nombreProveedor
         })
       } else if(notificacionNueva.type === 'confirmacion') {
+        cazador.notificaciones.unshift({
+          type: notificacionNueva.type,
+          id: notificacionNueva.id,
+          idProyecto: notificacionNueva.idProyecto,
+          nombreProyecto: notificacionNueva.nombreProyecto,
+          idProveedor: notificacionNueva.idProveedor,
+          nombreProveedor: notificacionNueva.nombreProveedor,
+          fecha: notificacionNueva.fecha,
+          hora: notificacionNueva.hora
+        })
+      } else if(notificacionNueva.type === 'nueva-propuesta') {
         cazador.notificaciones.unshift({
           type: notificacionNueva.type,
           id: notificacionNueva.id,

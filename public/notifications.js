@@ -104,17 +104,25 @@ const toggleNuevaPropuesta = event => {
   }
 }
 
-const handleRespuestaPropuesta = (event) => {
+const handleRespuestaPropuestaProveedor = (event) => {
   let notificacion = event.data
-  console.log('hi')
   if ($(`#${notificacion.id} .accept-date`).is(':checked')) {
-    sendConfirmacionCita(event);
+    sendConfirmacionCitaProveedor(event);
   } else if ($(`#${notificacion.id} .change-date`).is(':checked')) {
-    console.log('tal vez no')
+    sendNuevaPropuestaProveedor(event)
   }
 }
 
-const sendConfirmacionCita = (event) => {
+const handleRespuestaPropuestaCazador = (event) => {
+  let notificacion = event.data
+  if ($(`#${notificacion.id} .accept-date`).is(':checked')) {
+    sendConfirmacionCitaCazador(event);
+  } else if ($(`#${notificacion.id} .change-date`).is(':checked')) {
+    sendNuevaPropuestaCazador(event);
+  }
+}
+
+const sendConfirmacionCitaProveedor = (event) => {
   let notificacion = event.data
   body = JSON.stringify({
     type: 'confirmacion',
@@ -137,6 +145,88 @@ const sendConfirmacionCita = (event) => {
   fetch(`${window.location.pathname}/notificaciones/${notificacion.id}`,{
     method: 'DELETE'
   })
+  togglePopUp(notificacion.id);
+  window.location.reload();
+}
+
+const sendConfirmacionCitaCazador = (event) => {
+  let notificacion = event.data
+  body = JSON.stringify({
+    type: 'confirmacion',
+    id: notificacion.id,
+    idProyecto: notificacion.idProyecto,
+    nombreProyecto: notificacion.nombreProyecto,
+    fecha: notificacion.fecha,
+    hora: notificacion.hora,
+    idCazador: path.substring(path.lastIndexOf('/') + 1),
+    nombreCazador: 'Bas'
+  })
+  console.log(body)
+  fetch(`/talento/${notificacion.idProveedor}/notificaciones`, {
+    method: "POST",
+    body: body,
+    headers:{          
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    }
+  })
+  fetch(`${window.location.pathname}/notificaciones/${notificacion.id}`,{
+    method: 'DELETE'
+  })
+  togglePopUp(notificacion.id);
+  window.location.reload();
+}
+
+const sendNuevaPropuestaProveedor = (event) => {
+  let notificacion = event.data
+  body = JSON.stringify({
+    type: 'nueva-propuesta',
+    id: notificacion.id,
+    idProyecto: notificacion.idProyecto,
+    idProveedor: path.substring(path.lastIndexOf('/') + 1),
+    nombreProveedor: 'Alejandro',
+    nombreProyecto: notificacion.nombreProyecto,
+    fecha: $(`#${notificacion.id} #fecha-cita`).val(),
+    hora: $(`#${notificacion.id} #hora-cita`).val()
+  })
+  fetch(`/cazador/${notificacion.idCazador}/notificaciones`, {
+    method: "POST",
+    body: body,
+    headers:{          
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    }
+  })
+  fetch(`${window.location.pathname}/notificaciones/${notificacion.id}`, {
+    method: "DELETE"
+  });
+  togglePopUp(notificacion.id);
+  window.location.reload();
+}
+
+const sendNuevaPropuestaCazador = (event) => {
+  let notificacion = event.data
+  body = JSON.stringify({
+    type: 'nueva-propuesta',
+    id: notificacion.id,
+    idProyecto: notificacion.idProyecto,
+    idCazador: path.substring(path.lastIndexOf('/') + 1),
+    nombreCazador: 'Bas',
+    nombreProyecto: notificacion.nombreProyecto,
+    fecha: $(`#${notificacion.id} #fecha-cita`).val(),
+    hora: $(`#${notificacion.id} #hora-cita`).val()
+  })
+  fetch(`/talento/${notificacion.idProveedor}/notificaciones`, {
+    method: "POST",
+    body: body,
+    headers:{          
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    }
+  })
+  fetch(`${window.location.pathname}/notificaciones/${notificacion.id}`, {
+    method: "DELETE"
+  });
   togglePopUp(notificacion.id);
   window.location.reload();
 }
@@ -229,6 +319,58 @@ const mostrarNotificacionesCazador = (datos) => {
         </section>`
       )
       $(`#${notificacion.id} .button`).click(notificacion, handleConfirmacion);
+    } else if (notificacion.type === 'nueva-propuesta') {
+      $('.popups').append(
+        `<section class="form-bg" id="${notificacion.id}">
+          <div class="form">
+              <h2 class="create">¡Nueva Propuesta de Cita!</h2>
+              <div class="center-p">
+                  <p>${notificacion.nombreProveedor} ha hecho una nueva propuesta de cita. ¿Funciona para ti?</p>
+              </div>
+              <h3><b>Fecha propuesta:</b> ${notificacion.fecha} ${notificacion.hora}</h3>
+              <form class="form-content-date" onsubmit="return false">
+                  <div class="radio radio-cita">
+                      <input type="radio" name="usuario" class="accept-date" id="cazador-form" required>
+                      <label for="cazador-form" class="cazador-form" onclick="hideOptions()">¡Definitivamente!</label>
+
+                      <input type="radio" name="usuario" class="change-date" id="proveedor-form" required>
+                      <label for="proveedor-form" class="proveedor-form" onclick="showOptions()">Talvez no...</label>
+                  </div>
+                  <div id="propose-new">
+                      <label for="nombre-sign-up" class="propose">Proponga una fecha y hora alternativa para la
+                          cita</label>
+                      <div class="date-container">
+                      <div class="date">
+                          <label for="fecha-cita">Fecha de la Cita</label>
+                          <input type="date" name="fecha" id="fecha-cita">
+                      </div>
+                      <div class="time">
+                          <label for="hora-cita">Hora de la Cita</label>
+                          <input type="time" name="hora" id="hora-cita">
+                      </div>
+                      </div>
+                  </div>
+
+                  <div class="confirmation-container">
+                      <button type="submit" class="button negation-talento">
+                          Cancelar </button>
+                      <button type="submit" class="button form-sign-up">
+                          Responder </button>
+                  </div>
+                  <div class="close-form" onclick="togglePopUp('${notificacion.id}'); hideOptions()">
+                      <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                          <polygon fill="inherit"
+                              points="11.649 9.882 18.262 3.267 16.495 1.5 9.881 8.114 3.267 1.5 1.5 3.267 8.114 9.883 1.5 16.497 3.267 18.264 9.881 11.65 16.495 18.264 18.262 16.497">
+                          </polygon>
+                      </svg>
+                  </div>
+              </form>
+          </div>
+        </section>`
+      )
+      $(`#${notificacion.id} .form-sign-up`).click(notificacion, handleRespuestaPropuestaCazador);
+      $(`#${notificacion.id} .cazador-form`).click({id: notificacion.id, show: false}, toggleNuevaPropuesta)
+      $(`#${notificacion.id} .proveedor-form`).click({id: notificacion.id, show: true}, toggleNuevaPropuesta)
     }
   })
 }
@@ -294,7 +436,7 @@ const mostrarNotificacionesTalento = (datos) => {
           </div>
         </section>`
       )
-      $(`#${notificacion.id} .form-sign-up`).click(notificacion, handleRespuestaPropuesta);
+      $(`#${notificacion.id} .form-sign-up`).click(notificacion, handleRespuestaPropuestaProveedor);
       $(`#${notificacion.id} .cazador-form`).click({id: notificacion.id, show: false}, toggleNuevaPropuesta)
       $(`#${notificacion.id} .proveedor-form`).click({id: notificacion.id, show: true}, toggleNuevaPropuesta)
     } else if (notificacion.type === 'rechazo') {
@@ -323,6 +465,84 @@ const mostrarNotificacionesTalento = (datos) => {
         </section>`
       )
       $(`#${notificacion.id} .button`).click(notificacion, handleNotificacionRechazo);
+    } else if (notificacion.type === 'confirmacion') {
+      $('.popups').append(
+        `<section class="form-bg" id="${notificacion.id}">
+          <div class="form">
+              <h2 class="create">¡Cita confirmada!</h2>
+              <div class="center-p">
+                  <p>${notificacion.nombreCazador} ha aceptado la fecha y hora de la cita propuesta sobre el proyecto <a href="">${notificacion.nombreProyecto}</a></p>
+              </div>
+              <h3><b>Fecha de la cita:</b> ${notificacion.fecha} ${notificacion.hora}</h3>
+              <form class="form-content-date" onsubmit="return false"> 
+                  <div class="confirmation-container">
+                      <button type="submit" class="button form-sign-up">
+                          Cerrar </button>
+                  </div>
+                  <div class="close-form" onclick="togglePopUp('${notificacion.id}'); hideOptions()">
+                      <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                          <polygon fill="inherit"
+                              points="11.649 9.882 18.262 3.267 16.495 1.5 9.881 8.114 3.267 1.5 1.5 3.267 8.114 9.883 1.5 16.497 3.267 18.264 9.881 11.65 16.495 18.264 18.262 16.497">
+                          </polygon>
+                      </svg>
+                  </div>
+              </form>
+          </div>
+        </section>`
+      )
+      $(`#${notificacion.id} .button`).click(notificacion, handleConfirmacion);
+    } else if (notificacion.type === 'nueva-propuesta') {
+      $('.popups').append(
+        `<section class="form-bg" id="${notificacion.id}">
+          <div class="form">
+              <h2 class="create">¡Nueva Propuesta de Cita!</h2>
+              <div class="center-p">
+                  <p>${notificacion.nombreCazador}, el responsable de <a href="">${notificacion.nombreProyecto}</a> ha hecho una nueva propuesta de cita. ¿Funciona para ti?</p>
+              </div>
+              <h3><b>Fecha propuesta:</b> ${notificacion.fecha} ${notificacion.hora}</h3>
+              <form class="form-content-date" onsubmit="return false">
+                  <div class="radio radio-cita">
+                      <input type="radio" name="usuario" class="accept-date" id="cazador-form" required>
+                      <label for="cazador-form" class="cazador-form" onclick="hideOptions()">¡Definitivamente!</label>
+
+                      <input type="radio" name="usuario" class="change-date" id="proveedor-form" required>
+                      <label for="proveedor-form" class="proveedor-form" onclick="showOptions()">Talvez no...</label>
+                  </div>
+                  <div id="propose-new">
+                      <label for="nombre-sign-up" class="propose">Proponga una fecha y hora alternativa para la
+                          cita</label>
+                      <div class="date-container">
+                      <div class="date">
+                          <label for="fecha-cita">Fecha de la Cita</label>
+                          <input type="date" name="fecha" id="fecha-cita">
+                      </div>
+                      <div class="time">
+                          <label for="hora-cita">Hora de la Cita</label>
+                          <input type="time" name="hora" id="hora-cita">
+                      </div>
+                      </div>
+                  </div>
+
+                  <div class="confirmation-container">
+                      <button type="submit" class="button negation-talento">
+                          Cancelar </button>
+                      <button type="submit" class="button form-sign-up">
+                          Responder </button>
+                  </div>
+                  <div class="close-form" onclick="togglePopUp('${notificacion.id}'); hideOptions()">
+                      <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                          <polygon fill="inherit"
+                              points="11.649 9.882 18.262 3.267 16.495 1.5 9.881 8.114 3.267 1.5 1.5 3.267 8.114 9.883 1.5 16.497 3.267 18.264 9.881 11.65 16.495 18.264 18.262 16.497">
+                          </polygon>
+                      </svg>
+                  </div>
+              </form>
+          </div>
+        </section>`
+      )
+      $(`#${notificacion.id} .form-sign-up`).click(notificacion, handleRespuestaPropuestaProveedor);
+      $(`#${notificacion.id} .cazador-form`).click({id: notificacion.id, show: false}, toggleNuevaPropuesta)
+      $(`#${notificacion.id} .proveedor-form`).click({id: notificacion.id, show: true}, toggleNuevaPropuesta)
     }
   })
 }
