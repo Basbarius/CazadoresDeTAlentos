@@ -141,6 +141,17 @@ input::placeholder {
     border: 1px solid #676767;
 }
 
+.button.form-log-inN,
+.button.form-sign-upN {
+    height: 19px !important;
+    padding: 15px 70px !important;
+    font-family: 'Open Sans';
+    margin: 0 auto 16px;
+    padding: 0px 70px;
+    background-color: #F47C20;
+    color: white;
+}
+
 #password-log-in {
     margin: 0 0 50px 0;
 }

@@ -37,15 +37,16 @@
             <div class="form">
 
                 <h2>Iniciar sesión</h2>
-                <form class="form-content" action="">
+                <form class="form-content" action="" submit="return false">
                     <label for="correo-log-in">Correo electrónico</label>
                     <input type="email" name="correo" id="correo-log-in" required placeholder="john.doe@example.com">
 
                     <label for="password-log-in">Contraseña</label>
                     <input type="password" name="contrasena" id="password-log-in" required placeholder="***********">
-
-                    <button type="submit" class="button form-log-in">
-                        Iniciar sesión </button>
+                    <!-- <div onclick="authenticate(document.getElementById('correo-log-in').value, document.getElementById('password-log-in').value)">
+                        Hola</div> -->
+                    <div class="button form-log-inN" onclick="authenticate(document.getElementById('correo-log-in').value, document.getElementById('password-log-in').value)">
+                        Iniciar sesión </div>
                     <a href="#" class="forgot">¿Olvidaste tu contraseña?</a>
                     <div class="close-form" onclick="togglePopUp('form-bg-log-in')">
                         <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -65,13 +66,13 @@
             <div class="form">
 
                 <h2 class="create">Crear cuenta</h2>
-                <form class="form-content" action="">
+                <form class="form-content" action="" submit="return false">
 
                     <div class="radio">
-                        <input type="radio" name="usuario" id="cazador-form" required>
+                        <input type="radio" name="usuario" id="cazador-form" required onclick="document.getElementById('cazador-form').value = 'cazador'">
                         <label for="cazador-form" class="cazador-form">Cazador</label>
 
-                        <input type="radio" name="usuario" id="proveedor-form" required>
+                        <input type="radio" name="usuario" id="proveedor-form" required onclick="document.getElementById('proveedor-form').value = 'talento'">
                         <label for="proveedor-form" class="proveedor-form">Proveedor</label>
                     </div>
 
@@ -89,8 +90,8 @@
                     <label for="password-sign-up-2">Confirmar contraseña</label>
                     <input type="password" name="contrasena" id="password-sign-up-2" required>
 
-                    <button type="submit" class="button form-sign-up">
-                        Crear cuenta </button>
+                    <div type="submit" class="button form-sign-upN" onclick="createAccount(document.getElementById('nombre-sign-up').value, document.getElementById('cazador-form').value, document.getElementById('correo-sign-up').value, document.getElementById('password-sign-up-1').value, document.getElementById('password-sign-up-2').value)">
+                        Crear cuenta </div>
                     <div class="close-form" onclick="togglePopUp('form-bg-sign-up')">
                         <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             <polygon fill="inherit"
@@ -103,6 +104,8 @@
         </section>
     </div>
     <script type="text/javascript" src="popups.js"></script>
+    <script type="text/javascript" src="authentication.js"></script>
+    <script type="text/javascript" src="createAccount.js"></script>
 </body>
 
 </html>
