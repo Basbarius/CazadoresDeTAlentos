@@ -16,6 +16,8 @@ const {
     getUserInfo
 } = require("./private/API_accounts");
 
+/*----------------------------------------------------------------------------*/
+
 var express = require('express');
 var bodyParser = require('body-parser')
 var app = express();
@@ -47,6 +49,7 @@ app.get('/cazador/:id', function(request, response) {
 });
 
 app.get('/cazador/:id/notificaciones', sendNotificacionesCazador);
+app.post('/cazador/:id/notificaciones', postNotificacionCazador)
 app.delete('/cazador/:id/notificaciones/:idNotificacion', deleteNotificacionCazador);
 
 
