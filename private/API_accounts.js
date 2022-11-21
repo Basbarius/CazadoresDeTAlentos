@@ -1,15 +1,22 @@
 var cuentasExistentes = [{
         nombre: 'David Sebastiaan',
-        userID: '@david',
+        userID: '@bas',
         userType: 'Cazador',
         correo: 'david@hotmail.com',
         contraseña: '1234'
     },
     {
-        Nombre: 'Dulce Maria',
+        nombre: 'Dulce Maria',
         userID: '@dulce',
         userType: 'Talento',
         correo: 'dulce@hotmail.com',
+        contraseña: '5678'
+    },
+    {
+        nombre: 'Alejandro',
+        userID: '@alejandro',
+        userType: 'Talento',
+        correo: 'alejandro@hotmail.com',
         contraseña: '5678'
     }
 ]

@@ -4,6 +4,7 @@
 const {
     sendNotificacionesCazador,
     deleteNotificacionCazador,
+    postNotificacionCazador,
     sendNotificacionesTalento,
     deleteNotificacionTalento,
     postNotificacionTalento,
@@ -15,6 +16,12 @@ const {
     getNameFromID,
     getUserInfo
 } = require("./private/API_accounts");
+
+const {
+    getProyectos, 
+    getNameProyectoFromID, 
+    getProyectoInfo
+} = require('./private/API_projects')
 
 /*----------------------------------------------------------------------------*/
 
@@ -52,7 +59,6 @@ app.get('/cazador/:id/notificaciones', sendNotificacionesCazador);
 app.post('/cazador/:id/notificaciones', postNotificacionCazador)
 app.delete('/cazador/:id/notificaciones/:idNotificacion', deleteNotificacionCazador);
 
-
 app.get('/talento/:id', function(request, response) {
     response.sendFile(__dirname + '/public/talento.html');
 });
@@ -60,6 +66,9 @@ app.get('/talento/:id', function(request, response) {
 app.get('/talento/:id/notificaciones', sendNotificacionesTalento);
 app.post('/talento/:id/notificaciones', postNotificacionTalento);
 app.delete('/talento/:id/notificaciones/:idNotificacion', deleteNotificacionTalento)
+
+app.get('/proyectos', getProyectos)
+app.get('/proyectos/:id', getProyectos)
 
 app.listen(3000, function() {
     console.log("Running Express");
