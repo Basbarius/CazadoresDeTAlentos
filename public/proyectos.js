@@ -31,12 +31,42 @@ const postNuevoProyecto = async () => {
 const toggleStatus = (event) => {
     let idProyecto = event.data.idProyecto
     let status = event.data.status
-    let nuevoStatus = 'disponible'
     if (status === 'disponible') {
-        nuevoStatus = 'ninguno'
+        let nuevoStatus = 'ninguno'
+        fetch(`/proyectos/${idProyecto}/${nuevoStatus}`, {
+            method: "PUT",
+        })
+        window.location.reload()
+    } else {
+        togglePopUp(`${idProyecto}-horarios`)
     }
+}
+
+const postHorariosSpeedDate = (event) => {
+    let idProyecto = event.data.idProyecto
+    let fecha1 = $(`#${idProyecto}-fecha-cita-1`).val()
+    let fecha2 = $(`#${idProyecto}-fecha-cita-2`).val()
+    let fecha3 = $(`#${idProyecto}-fecha-cita-3`).val()
+    let horario1 = $(`#${idProyecto}-hora-cita-1`).val()
+    let horario2 = $(`#${idProyecto}-hora-cita-2`).val()
+    let horario3 = $(`#${idProyecto}-hora-cita-3`).val()
+    let nuevoStatus = 'disponible'
+    let body = JSON.stringify({
+        fecha1,
+        fecha2, 
+        fecha3,
+        horario1,
+        horario2,
+        horario3
+    })
+    console.log(body)
     fetch(`/proyectos/${idProyecto}/${nuevoStatus}`, {
         method: "PUT",
+        body: body,
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
     })
     window.location.reload()
 }
@@ -58,6 +88,60 @@ const mostrarProyectoCazador = (proyectos) => {
             </tr>`
         )
         $(`#${proyecto.idProyecto} .inscrip`).click({idProyecto: proyecto.idProyecto, status: proyecto.status}, toggleStatus);
+        $('.popups').append(
+            `<section class="form-bg" id="${proyecto.idProyecto}-horarios">
+                <div class="form">
+        
+                    <h2 class="create">Nuevo Speed Date</h2>
+                    <div class="center-p">
+                        <p>Por favor ingrese tres opciones de cita para speed date con el proyecto <a href="">${proyecto.nombreProyecto}</a></p>
+                    </div>
+                    <form class="form-content-date" onsubmit="return false">
+        
+                        <div class="date-container">
+                            <div class="date">
+                                <label for="fecha-cita-1">Fecha de la Cita</label>
+                                <input type="date" name="fecha" id="${proyecto.idProyecto}-fecha-cita-1" required>
+                            </div>
+                            <div class="time">
+                                <label for="hora-cita-1">Hora de la Cita</label>
+                                <input type="time" name="hora" id="${proyecto.idProyecto}-hora-cita-1" required>
+                            </div>
+                        </div>
+                        <div class="date-container">
+                            <div class="date">
+                                <input type="date" name="fecha" id="${proyecto.idProyecto}-fecha-cita-2" required>
+                            </div>
+                            <div class="time">
+                                <input type="time" name="hora" id="${proyecto.idProyecto}-hora-cita-2" required>
+                            </div>
+                        </div>
+                        <div class="date-container">
+                            <div class="date">
+                                <input type="date" name="fecha" id="${proyecto.idProyecto}-fecha-cita-3" required>
+                            </div>
+                            <div class="time">
+                                <input type="time" name="hora" id="${proyecto.idProyecto}-hora-cita-3" required>
+                            </div>
+                        </div>
+                        <div class="confirmation-container">
+                            <button type="submit" class="button negation" onclick="togglePopUp('${proyecto.idProyecto}-horarios')">
+                                Cancelar</button>
+                            <button type="submit" class="button form-sign-up">
+                                Proponer cita </button>
+                        </div>
+                        <div class="close-form" onclick="togglePopUp('${proyecto.idProyecto}-horarios')">
+                            <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <polygon fill="inherit"
+                                    points="11.649 9.882 18.262 3.267 16.495 1.5 9.881 8.114 3.267 1.5 1.5 3.267 8.114 9.883 1.5 16.497 3.267 18.264 9.881 11.65 16.495 18.264 18.262 16.497">
+                                </polygon>
+                            </svg>
+                        </div>
+                    </form>
+                </div>
+            </section>`
+        )
+        $(`#${proyecto.idProyecto}-horarios .form-sign-up`).click(proyecto, postHorariosSpeedDate);
     });
 }
 

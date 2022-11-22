@@ -7,7 +7,7 @@ var proyectosExistentes = [
         cuota: '$100.90',
         status: 'ninguno',
         idCazador: '@bas',
-        horarios: []
+        horarios: {}
     },
     {
         idProyecto: 'proyectoconsulting',
@@ -17,7 +17,7 @@ var proyectosExistentes = [
         cuota: '$95.50',
         status: 'ninguno',
         idCazador: '@bas',
-        horarios: []
+        horarios: {}
     },
 ]
 
@@ -53,6 +53,12 @@ const postNuevoProyecto = (request, response) => {
 const putStatusProyecto = (request, response) => {
     proyectosExistentes.forEach(proyecto => {
         if (proyecto.idProyecto === request.params.id) {
+            if (request.params.status === 'ninguno'){
+                proyecto.horarios = {}
+            } else if ( request.params.status === 'disponible') {
+                proyecto.horarios = request.body
+                console.log(proyecto)
+            }
             proyecto.status = request.params.status;
         } 
     })
