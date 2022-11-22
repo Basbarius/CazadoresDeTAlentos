@@ -98,7 +98,7 @@
         <div class="form new-project">
 
             <h2 class="create">Crear Proyecto</h2>
-            <form class="form-content" action="">
+            <form class="form-content" onsubmit="return false">
 
                 <label for="nombre-proyecto">Nombre del proyecto</label>
                 <input type="text" name="nombre" id="nombre-proyecto" required>
@@ -113,7 +113,7 @@
                 <textarea type="text" name="giro" id="giro-proyecto" required></textarea>
 
 
-                <button type="submit" class="button form-sign-up">
+                <button class="button form-sign-up">
                     Crear proyecto </button>
                 <div class="close-form" onclick="togglePopUp('form-bg-new-proyect')">
                     <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -125,6 +125,9 @@
             </form>
         </div>
     </section>
+    <script>
+          $('#form-bg-new-proyect .button').click(postNuevoProyecto);
+    </script>
 
     <div class="popups">
 

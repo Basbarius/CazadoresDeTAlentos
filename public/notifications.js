@@ -83,7 +83,9 @@ const sendNotificacionPostulacion = async (event) => {
   const datos = await fetch(`/${path.substring(path.lastIndexOf('/') + 1)}/account`)
   let nombreProveedor = await datos.json()
 
-  let id = notificacion.idProyecto + nombreProveedor
+  let id = notificacion.idProyecto + path.substring(path.lastIndexOf('/') + 1)
+  id = id.replace('@', '-')
+
   body = JSON.stringify({
     type: 'postulacion',
     id: id,
@@ -288,11 +290,11 @@ const mostrarNotificacionesCazador = (datos) => {
                   <div class="date-container">
                       <div class="date">
                           <label for="fecha-cita">Fecha de la Cita</label>
-                          <input type="date" name="fecha" id="fecha-cita" required>
+                          <input type="date" name="fecha" id="fecha-cita">
                       </div>
                       <div class="time">
                           <label for="hora-cita">Hora de la Cita</label>
-                          <input type="time" name="hora" id="hora-cita" required>
+                          <input type="time" name="hora" id="hora-cita">
                       </div>
                   </div>
   

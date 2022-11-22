@@ -33,6 +33,21 @@ const getProyectos = function(request, response) {
     }
 }
 
+const postNuevoProyecto = (request, response) => {
+    let proyectoNuevo = request.body;
+    console.log(proyectoNuevo)
+    let cuota = '$100.00';
+    proyectosExistentes.unshift({
+        idProyecto: proyectoNuevo.nombreProyecto.replace(/\s/g, '').toLowerCase(),
+        nombreProyecto: proyectoNuevo.nombreProyecto,
+        giro: proyectoNuevo.giro,
+        coordenadas: proyectoNuevo.coordenadas,
+        cuota: cuota,
+        status: 'disponible', 
+        idCazador: request.params.id
+    })
+}
+
 const getNameProyectoFromID = function(request, response) {
     let proyectos = [];
     proyectosExistentes.forEach(proyecto => {
@@ -50,5 +65,5 @@ const getProyectoInfo = function(request, response) {
 
 
 module.exports = {
-    getProyectos, getNameProyectoFromID, getProyectoInfo
+    getProyectos, postNuevoProyecto, getNameProyectoFromID, getProyectoInfo
 }

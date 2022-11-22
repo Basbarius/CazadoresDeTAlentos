@@ -19,6 +19,7 @@ const {
 
 const {
     getProyectos, 
+    postNuevoProyecto,
     getNameProyectoFromID, 
     getProyectoInfo
 } = require('./private/API_projects')
@@ -69,6 +70,7 @@ app.delete('/talento/:id/notificaciones/:idNotificacion', deleteNotificacionTale
 
 app.get('/proyectos', getProyectos)
 app.get('/proyectos/:id', getProyectos)
+app.post('/proyectos/:id', postNuevoProyecto)
 
 app.listen(3000, function() {
     console.log("Running Express");

@@ -12,20 +12,20 @@ const getProyectosProveedor = async () => {
     return proyectos
 }
 
-const postNewProject = async(nombre,coordenadas,tipo,giro) => {
-    fetch(`/cazador/${id}`, {
+const postNuevoProyecto = async () => {
+    fetch(`/proyectos/${path.substring(path.lastIndexOf('/') + 1)}`, {
         method: "POST",
         body: JSON.stringify({
-            nombre: nombre,
-            coordenadas: coordenadas,
-            tipo: tipo,
-            giro: giro
+            nombreProyecto: $('#nombre-proyecto').val(),
+            giro: $('#giro-proyecto').val(),
+            coordenadas: $('#coordenadas-proyecto').val(),
         }),
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         }
     })
+    window.location.reload();
 }
 
 const mostrarProyectoCazador = (proyectos) => {

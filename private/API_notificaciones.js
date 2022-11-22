@@ -142,12 +142,10 @@ const postNotificacionTalento = function(request, response) {
 }
 
 const postNotificacionCazador = function(request, response) {
-  console.log(request.body)
   let notificacionNueva = request.body;
   notificacionesCazador.forEach(cazador => {
     if (cazador.idCazador === request.params.id) {
       if (notificacionNueva.type === 'postulacion') {
-        console.log('before', cazador.notificaciones)
         cazador.notificaciones.unshift({
           type: notificacionNueva.type,
           id: notificacionNueva.id,
@@ -156,7 +154,6 @@ const postNotificacionCazador = function(request, response) {
           idProveedor: notificacionNueva.idProveedor,
           nombreProveedor: notificacionNueva.nombreProveedor
         })
-        console.log('after', cazador.notificaciones)
       } else if(notificacionNueva.type === 'confirmacion') {
         cazador.notificaciones.unshift({
           type: notificacionNueva.type,
