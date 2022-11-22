@@ -5,8 +5,9 @@ var proyectosExistentes = [
         giro: 'Se trata de una organización sin fines de lucro que se encarga de ayudar a las comunidades rurales más vulnerables de México a través de distintos programas de apoyo que son financiados a través de donaciones, dichos recursos provienen de todos aquellos que deciden convertirse en colaboradores de la organización.',
         coordenadas: 'La Otra Banda 54-Casa C, 01000 Ciudad de México, Ciudad de México',
         cuota: '$100.90',
-        status: 'disponible',
-        idCazador: '@bas'
+        status: 'ninguno',
+        idCazador: '@bas',
+        horarios: []
     },
     {
         idProyecto: 'proyectoconsulting',
@@ -14,8 +15,9 @@ var proyectosExistentes = [
         giro: 'El objetivo principal del departamento de Reclutamiento es presentar a la marca Audi México como un empleador atractivo para el mercado laboral externo.',
         coordenadas: 'San José Chiapa, CP.23890 Puebla, Puebla Mexico.',
         cuota: '$95.50',
-        status: 'disponible',
-        idCazador: '@bas'
+        status: 'ninguno',
+        idCazador: '@bas',
+        horarios: []
     },
 ]
 
@@ -43,8 +45,16 @@ const postNuevoProyecto = (request, response) => {
         giro: proyectoNuevo.giro,
         coordenadas: proyectoNuevo.coordenadas,
         cuota: cuota,
-        status: 'disponible', 
+        status: 'ninguno', 
         idCazador: request.params.id
+    })
+}
+
+const putStatusProyecto = (request, response) => {
+    proyectosExistentes.forEach(proyecto => {
+        if (proyecto.idProyecto === request.params.id) {
+            proyecto.status = request.params.status;
+        } 
     })
 }
 
@@ -65,5 +75,5 @@ const getProyectoInfo = function(request, response) {
 
 
 module.exports = {
-    getProyectos, postNuevoProyecto, getNameProyectoFromID, getProyectoInfo
+    getProyectos, postNuevoProyecto, getNameProyectoFromID, getProyectoInfo, putStatusProyecto
 }

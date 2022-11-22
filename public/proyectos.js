@@ -28,17 +28,36 @@ const postNuevoProyecto = async () => {
     window.location.reload();
 }
 
+const toggleStatus = (event) => {
+    let idProyecto = event.data.idProyecto
+    let status = event.data.status
+    let nuevoStatus = 'disponible'
+    if (status === 'disponible') {
+        nuevoStatus = 'ninguno'
+    }
+    fetch(`/proyectos/${idProyecto}/${nuevoStatus}`, {
+        method: "PUT",
+    })
+    window.location.reload()
+}
+
 const mostrarProyectoCazador = (proyectos) => {
     proyectos.forEach(proyecto => {
+        let claseStatus = 'wait'
+        if (proyecto.status === 'disponible') {
+            claseStatus = 'delivered'
+        }
         $('.proyectos-body').append(
-            `<tr>
+            `<tr id="${proyecto.idProyecto}">
                 <td>${proyecto.nombreProyecto}</td>
                 <td>${proyecto.giro}</td>
                 <td>${proyecto.coordenadas}</td>
                 <td>${proyecto.cuota}</td>
-                <td><span class="status delivered">${proyecto.status}</span></td>
+                <td><span class="status ${claseStatus}">${proyecto.status}</span></td>
+                <td><button class="inscrip">Cambiar Status</button></td>
             </tr>`
         )
+        $(`#${proyecto.idProyecto} .inscrip`).click({idProyecto: proyecto.idProyecto, status: proyecto.status}, toggleStatus);
     });
 }
 
