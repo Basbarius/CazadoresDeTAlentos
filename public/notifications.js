@@ -313,9 +313,9 @@ const mostrarNotificacionesCazador = (datos) => {
                   </div>
   
                   <div class="confirmation-container">
-                      <button type="submit" class="button negation">
+                      <button class="button negation">
                           Negar postulación </button>
-                      <button type="submit" class="button form-sign-up">
+                      <button class="button form-sign-up">
                           Proponer cita </button>
                   </div>
                   <div class="close-form" onclick="togglePopUp('${notificacion.id}')">
@@ -342,7 +342,7 @@ const mostrarNotificacionesCazador = (datos) => {
               <h3><b>Fecha de la cita:</b> ${notificacion.fecha} ${notificacion.hora}</h3>
               <form class="form-content-date" onsubmit="return false"> 
                   <div class="confirmation-container">
-                      <button type="submit" class="button form-sign-up">
+                      <button class="button form-sign-up">
                           Cerrar </button>
                   </div>
                   <div class="close-form" onclick="togglePopUp('${notificacion.id}'); hideOptions()">
@@ -390,9 +390,9 @@ const mostrarNotificacionesCazador = (datos) => {
                   </div>
 
                   <div class="confirmation-container">
-                      <button type="submit" class="button negation-talento">
+                      <button class="button negation-talento">
                           Cancelar </button>
-                      <button type="submit" class="button form-sign-up">
+                      <button class="button form-sign-up">
                           Responder </button>
                   </div>
                   <div class="close-form" onclick="togglePopUp('${notificacion.id}'); hideOptions()">
@@ -426,9 +426,9 @@ const mostrarNotificacionesCazador = (datos) => {
                       <label for="proveedor-form" class="proveedor-form" onclick="showOptions()">Mejor no</label>
                   </div>
                   <div class="confirmation-container">
-                      <button type="submit" class="button negation-talento" onclick="togglePopUp('${notificacion.id}')">
+                      <button class="button negation-talento" onclick="togglePopUp('${notificacion.id}')">
                           Cancelar </button>
-                      <button type="submit" class="button form-sign-up" id="${notificacion.id}-ofrecer-contrato">
+                      <button class="button form-sign-up" id="${notificacion.id}-ofrecer-contrato">
                           Responder </button>
                   </div>
                   <div class="close-form" onclick="togglePopUp('${notificacion.id}'); hideOptions()">
@@ -455,7 +455,7 @@ const mostrarNotificacionesCazador = (datos) => {
               </div>
               <form class="form-content-date" onsubmit="return false"> 
                   <div class="confirmation-container">
-                      <button type="submit" class="button form-sign-up">
+                      <button class="button form-sign-up">
                           Cerrar </button>
                   </div>
                   <div class="close-form" onclick="togglePopUp('${notificacion.id}'); hideOptions()">
@@ -479,9 +479,14 @@ const mostrarNotificacionesCazador = (datos) => {
                   <p>Califique del 1-5 a ${notificacion.nombreProveedor} sobre el trabajo realizado en <a href="">${notificacion.nombreProyecto}</a></p>
               </div>
               <form class="form-content-date" onsubmit="return false"> 
+                <div class="radio radio-cita">
+                  <input type="range" min="1" max="5" value="3" class="slider" id="${notificacion.id}-slider"">
+                </div>
                   <div class="confirmation-container">
-                      <button type="submit" class="button form-sign-up">
+                      <button class="button negation" onclick="togglePopUp('${notificacion.id}')">
                           Cerrar </button>
+                      <button class="button form-sign-up" id="${notificacion.id}-eval">
+                          Evaluar </button>
                   </div>
                   <div class="close-form" onclick="togglePopUp('${notificacion.id}'); hideOptions()">
                       <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -494,7 +499,7 @@ const mostrarNotificacionesCazador = (datos) => {
           </div>
         </section>`
       )
-      $(`#${notificacion.id} .button`).click(notificacion, handleConfirmacion);
+      $(`#${notificacion.id} .form-sign-up`).click(notificacion, handleEvaluacionCazador);
     }
   })
 }
@@ -544,9 +549,9 @@ const mostrarNotificacionesTalento = (datos) => {
                   </div>
   
                   <div class="confirmation-container">
-                      <button type="submit" class="button negation-talento">
+                      <button class="button negation-talento">
                           Cancelar </button>
-                      <button type="submit" class="button form-sign-up">
+                      <button class="button form-sign-up">
                           Responder </button>
                   </div>
                   <div class="close-form" onclick="togglePopUp('${notificacion.id}'); hideOptions()">
@@ -574,7 +579,7 @@ const mostrarNotificacionesTalento = (datos) => {
               </div>
               <form class="form-content-date" onsubmit="return false">
                   <div class="confirmation-container">
-                      <button type="submit" class="button form-sign-up">
+                      <button class="button form-sign-up">
                           Cerrar </button>
                   </div>
                   <div class="close-form" onclick="togglePopUp('${notificacion.id}'); hideOptions()">
@@ -600,7 +605,7 @@ const mostrarNotificacionesTalento = (datos) => {
               <h3><b>Fecha de la cita:</b> ${notificacion.fecha} ${notificacion.hora}</h3>
               <form class="form-content-date" onsubmit="return false"> 
                   <div class="confirmation-container">
-                      <button type="submit" class="button form-sign-up">
+                      <button  class="button form-sign-up">
                           Cerrar </button>
                   </div>
                   <div class="close-form" onclick="togglePopUp('${notificacion.id}'); hideOptions()">
@@ -648,9 +653,9 @@ const mostrarNotificacionesTalento = (datos) => {
                   </div>
 
                   <div class="confirmation-container">
-                      <button type="submit" class="button negation-talento">
+                      <button  class="button negation-talento">
                           Cancelar </button>
-                      <button type="submit" class="button form-sign-up">
+                      <button class="button form-sign-up">
                           Responder </button>
                   </div>
                   <div class="close-form" onclick="togglePopUp('${notificacion.id}'); hideOptions()">
@@ -684,9 +689,9 @@ const mostrarNotificacionesTalento = (datos) => {
                       <label for="proveedor-form" class="proveedor-form" onclick="showOptions()">Mejor no</label>
                   </div>
                   <div class="confirmation-container">
-                      <button type="submit" class="button negation-talento" onclick="togglePopUp('${notificacion.id}')">
+                      <button class="button negation-talento" onclick="togglePopUp('${notificacion.id}')">
                           Cancelar </button>
-                      <button type="submit" class="button form-sign-up" id="${notificacion.id}-ofrecer-contrato">
+                      <button class="button form-sign-up" id="${notificacion.id}-ofrecer-contrato">
                           Responder </button>
                   </div>
                   <div class="close-form" onclick="togglePopUp('${notificacion.id}'); hideOptions()">
@@ -703,6 +708,36 @@ const mostrarNotificacionesTalento = (datos) => {
       $(`#${notificacion.id} .cazador-form`).click({id: notificacion.id, show: false}, toggleNuevaPropuesta)
       $(`#${notificacion.id} .proveedor-form`).click({id: notificacion.id, show: true}, toggleNuevaPropuesta)
       $(`#${notificacion.id}-ofrecer-contrato`).click(notificacion, handlePosibleContratoProveedor)
+    } else if (notificacion.type === 'review-cazador') {
+      $('.popups').append(
+        `<section class="form-bg" id="${notificacion.id}">
+          <div class="form">
+              <h2 class="create">Trabajo terminado, hora de revisar!</h2>
+              <div class="center-p">
+                  <p>Califique del 1-5 a ${notificacion.nombreCazador} sobre la experiencia trabajando en <a href="">${notificacion.nombreProyecto}</a></p>
+              </div>
+              <form class="form-content-date" onsubmit="return false"> 
+                <div class="radio radio-cita">
+                  <input type="range" min="1" max="5" value="3" class="slider" id="${notificacion.id}-slider"">
+                </div>
+                  <div class="confirmation-container">
+                      <button class="button negation" onclick="togglePopUp('${notificacion.id}')">
+                          Cerrar </button>
+                      <button class="button form-sign-up" id="${notificacion.id}-eval">
+                          Evaluar </button>
+                  </div>
+                  <div class="close-form" onclick="togglePopUp('${notificacion.id}'); hideOptions()">
+                      <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                          <polygon fill="inherit"
+                              points="11.649 9.882 18.262 3.267 16.495 1.5 9.881 8.114 3.267 1.5 1.5 3.267 8.114 9.883 1.5 16.497 3.267 18.264 9.881 11.65 16.495 18.264 18.262 16.497">
+                          </polygon>
+                      </svg>
+                  </div>
+              </form>
+          </div>
+        </section>`
+      )
+      $(`#${notificacion.id} .form-sign-up`).click(notificacion, handleEvaluacionProveedor);
     }
   })
 }
@@ -773,6 +808,25 @@ const handlePosibleContratoProveedor = (event) => {
     postNotificacionGeneralCazador(notificacion, 'oferta-aceptada');
     postNotificacionGeneralCazador(notificacion, 'review-proveedor');
   }
+}
+
+const handleEvaluacionCazador = event => {
+  let notificacion = event.data
+  console.log($(`#${notificacion.id}-slider`).val())
+  postNotificacionGeneralTalento(notificacion, 'review-cazador');
+  fetch(`${window.location.pathname}/notificaciones/${notificacion.id}`,{
+    method: 'DELETE'
+  })
+  window.location.reload()
+}
+
+const handleEvaluacionProveedor = event => {
+  let notificacion = event.data
+  console.log($(`#${notificacion.id}-slider`).val())
+  fetch(`${window.location.pathname}/notificaciones/${notificacion.id}`,{
+    method: 'DELETE'
+  })
+  window.location.reload()
 }
 
 
