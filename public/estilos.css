@@ -267,10 +267,11 @@ table {
     border-bottom: none;
 }
 
-.proyectos .allProjects table tbody tr:hover {
+
+/* .proyectos .allProjects table tbody tr:hover {
     background: #F47C20;
     color: white;
-}
+} */
 
 .proyectos .allProjects table tr td {
     padding: 10px;
@@ -471,16 +472,18 @@ table {
     font-size: 14px;
     height: 38px;
     text-align: center;
-    background-color: #753F00;
-    color: white;
+    background-color: #F47C20;
+    color: #FFFFFF;
     margin: 10px 0px;
     padding: 0px 30px;
     justify-content: center;
     align-items: center;
+    border: 1px solid #F47C20;
+    transition: transform 200ms;
 }
 
 .inscrip:hover {
-    background-color: black;
+    transform: scale(1.1);
 }
 
 .notifi-item img {

@@ -21,7 +21,7 @@
                 </div>
                 <div class="col">
                     <h1 class="section-title">Cazadores de talento</h1>
-                    <p class="section-paragraph">Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quas iste quae eaque odio ab culpa asperiores quam. Sequi deleniti autem deserunt nesciunt ea totam quisquam perspiciatis vel dignissimos ex.</p>
+                    <p class="section-paragraph">¿Estas buscando proyectos en los cuales trabajar? <br> ¿Estas buscando talentos que trabajen en tus proyectos?<br> Sea cual sea tu objetivo, encuentra las mejores oportunidades aquí.</p>
                     <button class="button btn-sign-in" onclick="togglePopUp('form-bg-log-in')">
                         Iniciar sesión </button>
                     <button class="button btn-create-account" onclick="togglePopUp('form-bg-sign-up')">
@@ -89,9 +89,9 @@
 
                     <label for="password-sign-up-2">Confirmar contraseña</label>
                     <input type="password" name="contrasena" id="password-sign-up-2" required>
-
-                    <div type="submit" class="button form-sign-upN" onclick="createAccount(document.getElementById('nombre-sign-up').value, document.getElementById('cazador-form').value, document.getElementById('correo-sign-up').value, document.getElementById('password-sign-up-1').value, document.getElementById('password-sign-up-2').value)">
-                        Crear cuenta </div>
+                    <div class="utton form-sign-upN" onclick=""></div>
+                    <div type="submit" class="button form-sign-upN" onclick="checkIfCorrect(document.getElementById('nombre-sign-up').value, document.getElementById('correo-sign-up').value, document.getElementById('password-sign-up-1').value, document.getElementById('password-sign-up-2').value)">
+                        Siguiente </div>
                     <div class="close-form" onclick="togglePopUp('form-bg-sign-up')">
                         <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             <polygon fill="inherit"
@@ -102,6 +102,92 @@
                 </form>
             </div>
         </section>
+        <!-- Create account 2nd part-->
+        <section class="form-bg" id="form-bg-sign-up2">
+            <!-- Descomentar el de abajo para mostrar popup y comentar el de arriba -->
+            <!-- <section class="form-bg active"> -->
+            <div class="form">
+
+                <h2 class="create">Ingrese su informacion</h2>
+                <form class="form-content" action="" submit="return false">
+
+                    <label for="capacidades-sign-up">Capacidades</label>
+                    <input type="text" name="capacidades" id="capacidades-sign-up" required placeholder="Desarrollo de aplicaciones móviles">
+
+                    <label for="costoH-sign-up">Costo por hora</label>
+                    <input type="text" name="costoH" id="costoH-sign-up" required placeholder="100">
+
+                    <label for="state">Estado de la República</label>
+                    <select name="state" id="state">
+                        <option value="no">Seleccione uno ...</option>
+                        <option value="Aguascalientes">Aguascalientes</option>
+                        <option value="Baja California">Baja California</option>
+                        <option value="Baja California Sur">Baja California Sur</option>
+                        <option value="Campeche">Campeche</option>
+                        <option value="Chiapas">Chiapas</option>
+                        <option value="Chihuahua">Chihuahua</option>
+                        <option value="CDMX">Ciudad de México</option>
+                        <option value="Coahuila">Coahuila</option>
+                        <option value="Colima">Colima</option>
+                        <option value="Durango">Durango</option>
+                        <option value="Estado de México">Estado de México</option>
+                        <option value="Guanajuato">Guanajuato</option>
+                        <option value="Guerrero">Guerrero</option>
+                        <option value="Hidalgo">Hidalgo</option>
+                        <option value="Jalisco">Jalisco</option>
+                        <option value="Michoacán">Michoacán</option>
+                        <option value="Morelos">Morelos</option>
+                        <option value="Nayarit">Nayarit</option>
+                        <option value="Nuevo León">Nuevo León</option>
+                        <option value="Oaxaca">Oaxaca</option>
+                        <option value="Puebla">Puebla</option>
+                        <option value="Querétaro">Querétaro</option>
+                        <option value="Quintana Roo">Quintana Roo</option>
+                        <option value="San Luis Potosí">San Luis Potosí</option>
+                        <option value="Sinaloa">Sinaloa</option>
+                        <option value="Sonora">Sonora</option>
+                        <option value="Tabasco">Tabasco</option>
+                        <option value="Tamaulipas">Tamaulipas</option>
+                        <option value="Tlaxcala">Tlaxcala</option>
+                        <option value="Veracruz">Veracruz</option>
+                        <option value="Yucatán">Yucatán</option>
+                        <option value="Zacatecas">Zacatecas</option>
+                    </select>
+
+                    <div class="back-form" onclick="goBack('form-bg-sign-up2', 'form-bg-sign-up')">
+                        <?xml version="1.0" encoding="UTF-8"?>
+                        <svg width="10px" height="15px" viewBox="0 0 11 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <g id="Rounded" transform="translate(-548.000000, -3434.000000)">
+                                    <g id="Navigation" transform="translate(100.000000, 3378.000000)">
+                                        <g id="-Round-/-Navigation-/-arrow_back_ios"
+                                            transform="translate(442.000000, 54.000000)">
+                                            <g>
+                                                <polygon id="Path" opacity="0.87" points="0 0 24 0 24 24 0 24">
+                                                </polygon>
+                                                <path
+                                                    d="M16.62,2.99 C16.13,2.5 15.34,2.5 14.85,2.99 L6.54,11.3 C6.15,11.69 6.15,12.32 6.54,12.71 L14.85,21.02 C15.34,21.51 16.13,21.51 16.62,21.02 C17.11,20.53 17.11,19.74 16.62,19.25 L9.38,12 L16.63,4.75 C17.11,4.27 17.11,3.47 16.62,2.99 Z"
+                                                    id="🔹-Icon-Color" fill="#1D1D1D"></path>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </svg>
+                    </div>
+                    <div type="submit" class="button form-sign-upN" onclick="createAccount(document.getElementById('nombre-sign-up').value, document.getElementById('cazador-form').value, document.getElementById('correo-sign-up').value, document.getElementById('password-sign-up-1').value, document.getElementById('capacidades-sign-up').value, document.getElementById('costoH-sign-up').value, document.getElementById('state').value)">
+                        Crear cuenta </div>
+                    <div class="close-form" onclick="togglePopUp('form-bg-sign-up2')">
+                        <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <polygon fill="inherit"
+                                points="11.649 9.882 18.262 3.267 16.495 1.5 9.881 8.114 3.267 1.5 1.5 3.267 8.114 9.883 1.5 16.497 3.267 18.264 9.881 11.65 16.495 18.264 18.262 16.497">
+                            </polygon>
+                        </svg>
+                    </div>
+                </form>
+            </div>
+        </section>
+
     </div>
     <script type="text/javascript" src="popups.js"></script>
     <script type="text/javascript" src="authentication.js"></script>

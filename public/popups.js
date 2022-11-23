@@ -8,6 +8,14 @@ function togglePopUp(popupID) {
     }
 }
 
+function goBack(popupID1, popupID2) {
+    let popup1 = document.getElementById(popupID1);
+    let popup2 = document.getElementById(popupID2);
+
+    popup1.classList.remove("active");
+    popup2.classList.add("active");
+}
+
 // // Cazador page functions
 // let toggle = document.querySelector(".toggle");
 // let navigation = document.querySelector(".navigation");
