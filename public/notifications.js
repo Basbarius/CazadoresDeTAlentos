@@ -812,7 +812,16 @@ const handlePosibleContratoProveedor = (event) => {
 
 const handleEvaluacionCazador = event => {
   let notificacion = event.data
-  console.log($(`#${notificacion.id}-slider`).val())
+  fetch(`/reputation/${notificacion.idProveedor}`, {
+    method: "POST",
+    body: JSON.stringify({
+      score: $(`#${notificacion.id}-slider`).val()
+    }),
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    }
+  })
   postNotificacionGeneralTalento(notificacion, 'review-cazador');
   fetch(`${window.location.pathname}/notificaciones/${notificacion.id}`,{
     method: 'DELETE'
@@ -822,7 +831,16 @@ const handleEvaluacionCazador = event => {
 
 const handleEvaluacionProveedor = event => {
   let notificacion = event.data
-  console.log($(`#${notificacion.id}-slider`).val())
+  fetch(`/reputation/${notificacion.idCazador}`, {
+    method: "POST",
+    body: JSON.stringify({
+      score: $(`#${notificacion.id}-slider`).val()
+    }),
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    }
+  })
   fetch(`${window.location.pathname}/notificaciones/${notificacion.id}`,{
     method: 'DELETE'
   })
