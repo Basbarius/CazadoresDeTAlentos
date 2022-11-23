@@ -2,6 +2,11 @@
     color: #000000;
 }
 
+#lista-historial {
+    list-style-type: none;
+    text-align: center;
+}
+
 .popUp-user {
     display: none;
     position: relative;

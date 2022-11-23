@@ -859,3 +859,17 @@ if (path.includes('cazador')) {
 } else if (path.includes('talento')) {
     getNotificacionesTalento(path.substring(path.lastIndexOf('/') + 1)).then(datos => mostrarNotificacionesTalento(datos));
 }
+
+const getHistorial = async () => {
+  let userinfo = await fetch(`/login/${path.substring(path.lastIndexOf('/') + 1)}/new-account`)
+  let usuario = await userinfo.json()
+  let reputation = await fetch(`/login/${path.substring(path.lastIndexOf('/') + 1)}/reputation`)
+  let rep = await reputation.json()
+
+  $(`#lista-historial`).append(`<li>Reputación actual: ${rep.toFixed(2)}`)
+  usuario[0].reputacion.forEach(reputation => {
+    $(`#lista-historial`).append(`<li>Reputación: ${reputation.reputation}, fecha: ${reputation.fecha}</li>`)
+  })
+}
+
+getHistorial();
