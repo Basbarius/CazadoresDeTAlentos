@@ -19,6 +19,17 @@ var cuentasExistentes = [{
         costoH: '100',
         estado: 'Baja california',
         reputacion: [5]
+    },
+    {
+        nombre: 'Alejandro Olvida',
+        userID: '@alejandro',
+        userType: 'Talento',
+        correo: 'alejandro@hotmail.com',
+        contraseña: '5678',
+        capacidades: 'Creadora de videojuegos',
+        costoH: '100',
+        estado: 'Baja california',
+        reputacion: [2]
     }
 ]
 

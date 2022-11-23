@@ -22,6 +22,8 @@ const sendNotificacionPropuesta = async(event) => {
         idCazador: path.substring(path.lastIndexOf('/') + 1),
         nombreCazador: nombreCazador,
         nombreProyecto: notificacion.nombreProyecto,
+        idProveedor: notificacion.idProveedor,
+        nombreProveedor: notificacion.nombreProveedor,
         fecha: $(`#${notificacion.id} #fecha-cita`).val(),
         hora: $(`#${notificacion.id} #hora-cita`).val()
     })
@@ -141,12 +143,16 @@ const sendConfirmacionCitaProveedor = async(event) => {
     let notificacion = event.data
     const datos = await fetch(`/${path.substring(path.lastIndexOf('/') + 1)}/account`)
     let nombreProveedor = await datos.json()
+    notificacion.idProveedor = path.substring(path.lastIndexOf('/') + 1)
+    notificacion.nombreProveedor = nombreProveedor
 
     body = JSON.stringify({
         type: 'confirmacion',
         id: notificacion.id,
         idProyecto: notificacion.idProyecto,
         nombreProyecto: notificacion.nombreProyecto,
+        idCazador: notificacion.idCazador,
+        nombreCazador: notificacion.nombreCazador,
         fecha: notificacion.fecha,
         hora: notificacion.hora,
         idProveedor: path.substring(path.lastIndexOf('/') + 1),
@@ -163,7 +169,7 @@ const sendConfirmacionCitaProveedor = async(event) => {
     fetch(`${window.location.pathname}/notificaciones/${notificacion.id}`, {
         method: 'DELETE'
     })
-    togglePopUp(notificacion.id);
+    postNotificacionGeneralCazador(notificacion, 'posible-contrato')
     window.location.reload();
 }
 
@@ -171,12 +177,13 @@ const sendConfirmacionCitaCazador = async(event) => {
     let notificacion = event.data
     const datos = await fetch(`/${path.substring(path.lastIndexOf('/') + 1)}/account`)
     let nombreCazador = await datos.json()
-
     body = JSON.stringify({
         type: 'confirmacion',
         id: notificacion.id,
         idProyecto: notificacion.idProyecto,
         nombreProyecto: notificacion.nombreProyecto,
+        idProveedor: notificacion.idProveedor,
+        nombreProveedor: notificacion.nombreProveedor,
         fecha: notificacion.fecha,
         hora: notificacion.hora,
         idCazador: path.substring(path.lastIndexOf('/') + 1),
@@ -194,7 +201,7 @@ const sendConfirmacionCitaCazador = async(event) => {
     fetch(`${window.location.pathname}/notificaciones/${notificacion.id}`, {
         method: 'DELETE'
     })
-    togglePopUp(notificacion.id);
+    postNotificacionGeneralCazador(notificacion, 'posible-contrato')
     window.location.reload();
 }
 
@@ -732,6 +739,7 @@ const mostrarNotificacionesTalento = (datos) => {
 }
 
 const postNotificacionGeneralCazador = async(notificacion, type) => {
+    console.log(notificacion)
     body = JSON.stringify({
         type: type,
         id: notificacion.id + type,

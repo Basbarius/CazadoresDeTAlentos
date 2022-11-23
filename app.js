@@ -22,6 +22,8 @@ const {
     getProyectos,
     postNuevoProyecto,
     putStatusProyecto,
+    getSpeedDate,
+    getNoProyectosCazador,
     getNameProyectoFromID,
     getProyectoInfo
 } = require('./private/API_projects')

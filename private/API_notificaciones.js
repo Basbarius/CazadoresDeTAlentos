@@ -87,7 +87,7 @@ const sendNotificacionesTalento = function(request, response) {
 }
 
 const postNotificacionTalento = function(request, response) {
-    console.log(request.body)
+    console.log('notificacion proveedor', request.body)
     let notificacionNueva = request.body;
     notificacionesTalento.forEach(talento => {
         if (talento.idTalento === request.params.id) {
@@ -118,6 +118,8 @@ const postNotificacionTalento = function(request, response) {
                     nombreProyecto: notificacionNueva.nombreProyecto,
                     idCazador: notificacionNueva.idCazador,
                     nombreCazador: notificacionNueva.nombreCazador,
+                    idProveedor: notificacionNueva.idProveedor,
+                    nombreProveedor: notificacionNueva.nombreProveedor,
                     fecha: notificacionNueva.fecha,
                     hora: notificacionNueva.hora
                 })
@@ -132,12 +134,24 @@ const postNotificacionTalento = function(request, response) {
                     fecha: notificacionNueva.fecha,
                     hora: notificacionNueva.hora
                 })
+            } else {
+              talento.notificaciones.unshift({
+                type: notificacionNueva.type,
+                id: notificacionNueva.id,
+                idProyecto: notificacionNueva.idProyecto,
+                nombreProyecto: notificacionNueva.nombreProyecto,
+                idCazador: notificacionNueva.idCazador,
+                nombreCazador: notificacionNueva.nombreCazador,
+                idProveedor: notificacionNueva.idProveedor,
+                nombreProveedor: notificacionNueva.nombreProveedor
+            })
             }
         }
     })
 }
 
 const postNotificacionCazador = function(request, response) {
+  console.log('notificacion cazador', request.body)
     let notificacionNueva = request.body;
     notificacionesCazador.forEach(cazador => {
         if (cazador.idCazador === request.params.id) {
@@ -158,6 +172,8 @@ const postNotificacionCazador = function(request, response) {
                     nombreProyecto: notificacionNueva.nombreProyecto,
                     idProveedor: notificacionNueva.idProveedor,
                     nombreProveedor: notificacionNueva.nombreProveedor,
+                    idCazador: notificacionNueva.idCazador,
+                    nombreCazador: notificacionNueva.nombreCazador,
                     fecha: notificacionNueva.fecha,
                     hora: notificacionNueva.hora
                 })
@@ -172,6 +188,17 @@ const postNotificacionCazador = function(request, response) {
                     fecha: notificacionNueva.fecha,
                     hora: notificacionNueva.hora
                 })
+            } else {
+              cazador.notificaciones.unshift({
+                type: notificacionNueva.type,
+                id: notificacionNueva.id,
+                idProyecto: notificacionNueva.idProyecto,
+                nombreProyecto: notificacionNueva.nombreProyecto,
+                idProveedor: notificacionNueva.idProveedor,
+                nombreProveedor: notificacionNueva.nombreProveedor,
+                idCazador: notificacionNueva.idCazador,
+                nombreCazador: notificacionNueva.nombreCazador
+            })
             }
         }
     })
