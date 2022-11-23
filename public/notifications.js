@@ -111,6 +111,7 @@ const sendNotificacionPostulacion = async(event) => {
             'Content-Type': 'application/json'
         }
     })
+    alert("Postulación hecha exitosamente")
 }
 
 const toggleNuevaPropuesta = event => {
@@ -180,6 +181,8 @@ const sendConfirmacionCitaCazador = async(event) => {
     let notificacion = event.data
     const datos = await fetch(`/${path.substring(path.lastIndexOf('/') + 1)}/account`)
     let nombreCazador = await datos.json()
+    notificacion.nombreCazador = nombreCazador
+    notificacion.idCazador = path.substring(path.lastIndexOf('/') + 1)
     body = JSON.stringify({
         type: 'confirmacion',
         id: notificacion.id,
@@ -285,6 +288,7 @@ const mostrarNotificacionesCazador = (datos) => {
               <div class="text">
                 <h4>${notificacion.nombreProveedor}</h4>
                 <p>${notificacion.idProveedor}</p>
+                <h5>${notificacion.type}</h5>
               </div>
             </div>`
         )
@@ -511,6 +515,7 @@ const mostrarNotificacionesTalento = (datos) => {
         <div class="text">
           <h4>${notificacion.nombreCazador}</h4>
           <p>${notificacion.idCazador}</p>
+          <p>${notificacion.type}</p>
         </div>
       </div>`
         )
@@ -812,7 +817,16 @@ const handlePosibleContratoProveedor = (event) => {
 
 const handleEvaluacionCazador = event => {
   let notificacion = event.data
-  console.log($(`#${notificacion.id}-slider`).val())
+  fetch(`/reputation/${notificacion.idProveedor}`, {
+    method: "POST",
+    body: JSON.stringify({
+      score: $(`#${notificacion.id}-slider`).val()
+    }),
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    }
+  })
   postNotificacionGeneralTalento(notificacion, 'review-cazador');
   fetch(`${window.location.pathname}/notificaciones/${notificacion.id}`,{
     method: 'DELETE'
@@ -822,7 +836,16 @@ const handleEvaluacionCazador = event => {
 
 const handleEvaluacionProveedor = event => {
   let notificacion = event.data
-  console.log($(`#${notificacion.id}-slider`).val())
+  fetch(`/reputation/${notificacion.idCazador}`, {
+    method: "POST",
+    body: JSON.stringify({
+      score: $(`#${notificacion.id}-slider`).val()
+    }),
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    }
+  })
   fetch(`${window.location.pathname}/notificaciones/${notificacion.id}`,{
     method: 'DELETE'
   })

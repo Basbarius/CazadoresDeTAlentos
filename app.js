@@ -15,7 +15,8 @@ const {
     updateCredentials,
     getNameFromID,
     getUserInfo,
-    avgReputation
+    avgReputation,
+    postReview
 } = require("./private/API_accounts");
 
 const {
@@ -56,6 +57,8 @@ app.get('/login/authentication', getCredenciales)
 app.post('/login/:id/new-account', updateCredentials)
 app.get('/login/:id/new-account', getUserInfo)
 app.get('/login/:id/reputation', avgReputation)
+
+app.post('/reputation/:id', postReview);
 
 app.get('/cazador/:id', function(request, response) {
     response.sendFile(__dirname + '/public/cazador.html');

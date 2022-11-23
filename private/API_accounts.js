@@ -107,10 +107,24 @@ const updateCredentials = function(request, response) {
     })
 }
 
+const postReview = function(request, response) {
+    let score = parseInt(request.body.score)
+    cuentasExistentes.forEach(cuenta => {
+        if (cuenta.userID === request.params.id) {
+            let currentDate = new Date().toJSON().slice(0, 10);
+            cuenta.reputacion.push({
+                reputation: score,
+                fecha: currentDate
+            })
+        }
+    })
+}
+
 module.exports = {
     getCredenciales,
     getNameFromID,
     updateCredentials,
     getUserInfo,
-    avgReputation
+    avgReputation,
+    postReview
 }
