@@ -16,6 +16,12 @@ function goBack(popupID1, popupID2) {
     popup2.classList.add("active");
 }
 
+function closeSession() {
+    path = window.location.href
+    var newStr = path.slice(0, 21)
+    location.replace(newStr)
+}
+
 // // Cazador page functions
 // let toggle = document.querySelector(".toggle");
 // let navigation = document.querySelector(".navigation");

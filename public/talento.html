@@ -22,7 +22,7 @@
         <div class="popUp-user" id="popUp-id">
             <ul class="options-user">
                 <li onclick="togglePopUp('historial')">Historial</li>
-                <li>Cerrar sesión</li>
+                <li onclick="closeSession()">Cerrar sesión</li>
             </ul>
         </div>
         <div class="navigation">
@@ -134,7 +134,7 @@
 
     <div class="popups">
         <section class="form-bg" id="historial">
-            <div class="form" >
+            <div class="form">
                 <h2 class="create">Historial de Reputacion</h2>
                 <div class="center-p">
                     <ul id="lista-historial">
@@ -155,7 +155,7 @@
                     </div>
                 </form>
             </div>
-          </section>
+        </section>
     </div>
     <!-- <script type="text/javascript">
         let toggle = document.querySelector('.toggle');
