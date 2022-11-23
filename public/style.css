@@ -1,3 +1,39 @@
+.options-user {
+    color: #000000;
+}
+
+.popUp-user {
+    display: none;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+}
+
+.options-user {
+    list-style-type: none;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(332%, 50%);
+    z-index: 100;
+    padding: 18px 22px 8px 22px;
+    background: #FFFFFF;
+    border-radius: 15px;
+    box-shadow: rgb(149 157 165 / 20%) 0px 8px 24px;
+}
+
+.options-user li {
+    padding: 10px;
+    margin-bottom: 8px;
+    cursor: pointer;
+}
+
+.options-user li:hover {
+    color: #F47C20;
+}
+
 .first-section {
     display: flex;
     max-width: 1280px;

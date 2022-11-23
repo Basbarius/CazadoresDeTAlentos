@@ -19,6 +19,12 @@
 
 <body>
     <div class="container">
+        <div class="popUp-user" id="popUp-id">
+            <ul class="options-user">
+                <li>Historial</li>
+                <li>Cerrar sesión</li>
+            </ul>
+        </div>
         <div class="navigation">
             <ul>
                 <li>
@@ -38,7 +44,7 @@
 
                 <li>
                     <div class="notifi-box" id="box">
-                        
+
                     </div>
                 </li>
             </ul>
@@ -58,7 +64,7 @@
                     </label>
                 </div>
                 <!-- userImage-->
-                <div class="user">
+                <div class="user" onclick="togglePopUp('popUp-id')">
                     <img src="/Img/perfil.jpg" alt="profile">
                 </div>
             </div>
@@ -68,9 +74,10 @@
                     <div class="cardHeader">
                         <h2>Lista de proyectos</h2>
                         <!--<a href="#" class="btn"> Añadir proyecto</a>-->
-                        
+
                         <div class="center">
-                            <button class="show-popup" id="show-popup" onclick="searchSpeedDate()">Encontrar Speed Date</button>
+                            <button class="show-popup" id="show-popup" onclick="searchSpeedDate()">Encontrar Speed
+                                Date</button>
                         </div>
                     </div>
                     <table>
@@ -126,7 +133,7 @@
     </section>
 
     <div class="popups">
-        
+
     </div>
     <!-- <script type="text/javascript">
         let toggle = document.querySelector('.toggle');
