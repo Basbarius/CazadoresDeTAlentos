@@ -88,6 +88,7 @@ const sendNotificacionPostulacion = async(event) => {
     let usuario = await datos.json()
     let userReputation = await reputation.json()
     let id = notificacion.idProyecto + path.substring(path.lastIndexOf('/') + 1)
+    console.log(usuario[0].costoH)
     id = id.replace('@', '-')
     if (userReputation === null) {
       userReputation = 1
@@ -100,7 +101,9 @@ const sendNotificacionPostulacion = async(event) => {
         nombreProyecto: notificacion.nombreProyecto,
         idProveedor: path.substring(path.lastIndexOf('/') + 1),
         nombreProveedor: usuario[0].nombre,
-        reputation: userReputation
+        reputation: userReputation,
+        costoHora: usuario[0].costoH
+
     })
     console.log(body)
     fetch(`/cazador/${notificacion.idCazador}/notificaciones`, {

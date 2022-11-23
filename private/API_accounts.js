@@ -35,7 +35,7 @@ var cuentasExistentes = [{
         ]
     },
     {
-        nombre: 'Alejandro Olvida',
+        nombre: 'Alejandro Oliva',
         userID: '@alejandro',
         userType: 'Talento',
         correo: 'alejandro@hotmail.com',
@@ -88,6 +88,7 @@ const avgReputation = function(request, response) {
 
 const getUserInfo = function(request, response) {
     var result = cuentasExistentes.filter(x => x.userID === request.params.id);
+    console.log(result)
     response.json(result)
 }
 
