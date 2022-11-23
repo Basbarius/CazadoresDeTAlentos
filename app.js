@@ -14,15 +14,16 @@ const {
     getCredenciales,
     updateCredentials,
     getNameFromID,
-    getUserInfo
+    getUserInfo,
+    avgReputation
 } = require("./private/API_accounts");
 
 const {
-    getProyectos, 
+    getProyectos,
     postNuevoProyecto,
     putStatusProyecto,
-    getSpeedDate,
-    getNoProyectosCazador
+    getNameProyectoFromID,
+    getProyectoInfo
 } = require('./private/API_projects')
 
 /*----------------------------------------------------------------------------*/
@@ -52,6 +53,7 @@ app.get('/:id/account', getNameFromID);
 app.get('/login/authentication', getCredenciales)
 app.post('/login/:id/new-account', updateCredentials)
 app.get('/login/:id/new-account', getUserInfo)
+app.get('/login/:id/reputation', avgReputation)
 
 app.get('/cazador/:id', function(request, response) {
     response.sendFile(__dirname + '/public/cazador.html');

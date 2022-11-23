@@ -1,303 +1,292 @@
-const getNotificacionesCazador = async (id) => {
-  let notificaciones = await fetch (`/cazador/${id}/notificaciones`)
-  let datos = await notificaciones.json()
-  return datos
+const getNotificacionesCazador = async(id) => {
+    let notificaciones = await fetch(`/cazador/${id}/notificaciones`)
+    let datos = await notificaciones.json()
+    return datos
 }
 
-const getNotificacionesTalento = async (id) => {
-  let notificaciones = await fetch (`/talento/${id}/notificaciones`)
-  let datos = await notificaciones.json()
-  return datos
+const getNotificacionesTalento = async(id) => {
+    let notificaciones = await fetch(`/talento/${id}/notificaciones`)
+    let datos = await notificaciones.json()
+    return datos
 }
 
-const sendNotificacionPropuesta = async (event) => {
-  let notificacion = event.data
-  const datos = await fetch(`/${path.substring(path.lastIndexOf('/') + 1)}/account`)
-  let nombreCazador = await datos.json()
+const sendNotificacionPropuesta = async(event) => {
+    let notificacion = event.data
+    const datos = await fetch(`/${path.substring(path.lastIndexOf('/') + 1)}/account`)
+    let nombreCazador = await datos.json()
 
-  body = JSON.stringify({
-    type: 'propuesta',
-    id: notificacion.id,
-    idProyecto: notificacion.idProyecto,
-    idCazador: path.substring(path.lastIndexOf('/') + 1),
-    nombreCazador: nombreCazador,
-    nombreProyecto: notificacion.nombreProyecto,
-    idProveedor: notificacion.idProveedor,
-    nombreProveedor: notificacion.nombreProveedor,
-    fecha: $(`#${notificacion.id} #fecha-cita`).val(),
-    hora: $(`#${notificacion.id} #hora-cita`).val()
-  })
-  fetch(`/talento/${notificacion.idProveedor}/notificaciones`, {
-    method: "POST",
-    body: body,
-    headers:{          
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    }
-  })
-  fetch(`${window.location.pathname}/notificaciones/${notificacion.id}`, {
-    method: "DELETE"
-  });
-  togglePopUp(notificacion.id);
-  window.location.reload();
-}
-
-const sendNotificacionRechazo = async (event) => {
-  let notificacion = event.data
-  const datos = await fetch(`/${path.substring(path.lastIndexOf('/') + 1)}/account`)
-  let nombreCazador = await datos.json()
-
-  if (confirm('Seguro que quieres rechazar la postulacion?')) {
     body = JSON.stringify({
-      type: 'rechazo',
-      id: notificacion.id,
-      idCazador: path.substring(path.lastIndexOf('/') + 1),
-      nombreCazador: nombreCazador,
-      nombreProyecto: notificacion.nombreProyecto,
-      idProveedor: notificacion.idProveedor
+        type: 'propuesta',
+        id: notificacion.id,
+        idProyecto: notificacion.idProyecto,
+        idCazador: path.substring(path.lastIndexOf('/') + 1),
+        nombreCazador: nombreCazador,
+        nombreProyecto: notificacion.nombreProyecto,
+        fecha: $(`#${notificacion.id} #fecha-cita`).val(),
+        hora: $(`#${notificacion.id} #hora-cita`).val()
     })
     fetch(`/talento/${notificacion.idProveedor}/notificaciones`, {
-      method: "POST",
-      body: body,
-      headers:{          
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      }
+        method: "POST",
+        body: body,
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
     })
     fetch(`${window.location.pathname}/notificaciones/${notificacion.id}`, {
-      method: "DELETE"
+        method: "DELETE"
     });
     togglePopUp(notificacion.id);
     window.location.reload();
-  }
+}
+
+const sendNotificacionRechazo = async(event) => {
+    let notificacion = event.data
+    const datos = await fetch(`/${path.substring(path.lastIndexOf('/') + 1)}/account`)
+    let nombreCazador = await datos.json()
+
+    if (confirm('Seguro que quieres rechazar la postulacion?')) {
+        body = JSON.stringify({
+            type: 'rechazo',
+            id: notificacion.id,
+            idCazador: path.substring(path.lastIndexOf('/') + 1),
+            nombreCazador: nombreCazador,
+            nombreProyecto: notificacion.nombreProyecto,
+        })
+        fetch(`/talento/${notificacion.idProveedor}/notificaciones`, {
+            method: "POST",
+            body: body,
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+        fetch(`${window.location.pathname}/notificaciones/${notificacion.id}`, {
+            method: "DELETE"
+        });
+        togglePopUp(notificacion.id);
+        window.location.reload();
+    }
 }
 
 const handleConfirmacion = (event) => {
-  let notificacion = event.data
-  fetch(`${window.location.pathname}/notificaciones/${notificacion.id}`, {
-    method: "DELETE"
-  });
-  togglePopUp(notificacion.id);
-  window.location.reload();
+    let notificacion = event.data
+    fetch(`${window.location.pathname}/notificaciones/${notificacion.id}`, {
+        method: "DELETE"
+    });
+    togglePopUp(notificacion.id);
+    window.location.reload();
 }
 
-const sendNotificacionPostulacion = async (event) => {
-  let notificacion = event.data
-  const datos = await fetch(`/${path.substring(path.lastIndexOf('/') + 1)}/account`)
-  let nombreProveedor = await datos.json()
+const sendNotificacionPostulacion = async(event) => {
+    let notificacion = event.data
+    const datos = await fetch(`/login/${path.substring(path.lastIndexOf('/') + 1)}/new-account`)
+    const reputation = await fetch(`/login/${path.substring(path.lastIndexOf('/') + 1)}/reputation`)
 
-  let id = notificacion.idProyecto + path.substring(path.lastIndexOf('/') + 1)
-  id = id.replace('@', '-')
+    let usuario = await datos.json()
+    let userReputation = await reputation.json()
+    let id = notificacion.idProyecto + path.substring(path.lastIndexOf('/') + 1)
+    id = id.replace('@', '-')
+    console.log(userReputation)
 
-  body = JSON.stringify({
-    type: 'postulacion',
-    id: id,
-    idProyecto: notificacion.idProyecto,
-    nombreProyecto: notificacion.nombreProyecto,
-    idProveedor: path.substring(path.lastIndexOf('/') + 1),
-    nombreProveedor: nombreProveedor,
-    idCazador: notificacion.idCazador
-  })
-  console.log(body)
-  fetch(`/cazador/${notificacion.idCazador}/notificaciones`, {
-    method: "POST",
-    body: body,
-    headers:{          
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    }
-  })
+    body = JSON.stringify({
+        type: 'postulacion',
+        id: id,
+        idProyecto: notificacion.idProyecto,
+        nombreProyecto: notificacion.nombreProyecto,
+        idProveedor: path.substring(path.lastIndexOf('/') + 1),
+        nombreProveedor: nombreProveedor
+    })
+    console.log(body)
+    fetch(`/cazador/${notificacion.idCazador}/notificaciones`, {
+        method: "POST",
+        body: body,
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    })
 }
 
 const toggleNuevaPropuesta = event => {
-  let id = event.data.id
-  if (event.data.show) {
-    $(`#${id} .accept-date`).prop('checked', true);
-    $(`#${id} .change-date`).prop('checked', false);
-  } else {
-    $(`#${id} .accept-date`).prop('checked', false);
-    $(`#${id} .change-date`).prop('checked', true);
-  }
+    let id = event.data.id
+    if (event.data.show) {
+        $(`#${id} .accept-date`).prop('checked', true);
+        $(`#${id} .change-date`).prop('checked', false);
+    } else {
+        $(`#${id} .accept-date`).prop('checked', false);
+        $(`#${id} .change-date`).prop('checked', true);
+    }
 }
 
 const handleRespuestaPropuestaProveedor = (event) => {
-  let notificacion = event.data
-  if ($(`#${notificacion.id} .accept-date`).is(':checked')) {
-    sendConfirmacionCitaProveedor(event);
-  } else if ($(`#${notificacion.id} .change-date`).is(':checked')) {
-    sendNuevaPropuestaProveedor(event)
-  }
+    let notificacion = event.data
+    if ($(`#${notificacion.id} .accept-date`).is(':checked')) {
+        sendConfirmacionCitaProveedor(event);
+    } else if ($(`#${notificacion.id} .change-date`).is(':checked')) {
+        sendNuevaPropuestaProveedor(event)
+    }
 }
 
 const handleRespuestaPropuestaCazador = (event) => {
-  let notificacion = event.data
-  if ($(`#${notificacion.id} .accept-date`).is(':checked')) {
-    sendConfirmacionCitaCazador(event);
-  } else if ($(`#${notificacion.id} .change-date`).is(':checked')) {
-    sendNuevaPropuestaCazador(event);
-  }
+    let notificacion = event.data
+    if ($(`#${notificacion.id} .accept-date`).is(':checked')) {
+        sendConfirmacionCitaCazador(event);
+    } else if ($(`#${notificacion.id} .change-date`).is(':checked')) {
+        sendNuevaPropuestaCazador(event);
+    }
 }
 
-const sendConfirmacionCitaProveedor = async (event) => {
-  let notificacion = event.data
-  const datos = await fetch(`/${path.substring(path.lastIndexOf('/') + 1)}/account`)
-  notificacion.nombreProveedor = await datos.json()
-  notificacion.idProveedor = path.substring(path.lastIndexOf('/') + 1)
+const sendConfirmacionCitaProveedor = async(event) => {
+    let notificacion = event.data
+    const datos = await fetch(`/${path.substring(path.lastIndexOf('/') + 1)}/account`)
+    let nombreProveedor = await datos.json()
 
-  body = JSON.stringify({
-    type: 'confirmacion',
-    id: notificacion.id,
-    idProyecto: notificacion.idProyecto,
-    nombreProyecto: notificacion.nombreProyecto,
-    fecha: notificacion.fecha,
-    hora: notificacion.hora,
-    idProveedor: notificacion.idProveedor,
-    nombreProveedor: notificacion.nombreProveedor,
-    idCazador: notificacion.idCazador,
-    nombreCazador: notificacion.nombreCazador
-  })
-  console.log(body)
-  fetch(`/cazador/${notificacion.idCazador}/notificaciones`, {
-    method: "POST",
-    body: body,
-    headers:{          
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    }
-  })
-  fetch(`${window.location.pathname}/notificaciones/${notificacion.id}`,{
-    method: 'DELETE'
-  })
-  postNotificacionGeneralCazador(notificacion, 'posible-contrato')
-  window.location.reload();
+    body = JSON.stringify({
+        type: 'confirmacion',
+        id: notificacion.id,
+        idProyecto: notificacion.idProyecto,
+        nombreProyecto: notificacion.nombreProyecto,
+        fecha: notificacion.fecha,
+        hora: notificacion.hora,
+        idProveedor: path.substring(path.lastIndexOf('/') + 1),
+        nombreProveedor: nombreProveedor
+    })
+    fetch(`/cazador/${notificacion.idCazador}/notificaciones`, {
+        method: "POST",
+        body: body,
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    })
+    fetch(`${window.location.pathname}/notificaciones/${notificacion.id}`, {
+        method: 'DELETE'
+    })
+    togglePopUp(notificacion.id);
+    window.location.reload();
 }
 
-const sendConfirmacionCitaCazador = async (event) => {
-  let notificacion = event.data
-  const datos = await fetch(`/${path.substring(path.lastIndexOf('/') + 1)}/account`)
-  let nombreCazador = await datos.json()
+const sendConfirmacionCitaCazador = async(event) => {
+    let notificacion = event.data
+    const datos = await fetch(`/${path.substring(path.lastIndexOf('/') + 1)}/account`)
+    let nombreCazador = await datos.json()
 
-  body = JSON.stringify({
-    type: 'confirmacion',
-    id: notificacion.id,
-    idProyecto: notificacion.idProyecto,
-    nombreProyecto: notificacion.nombreProyecto,
-    fecha: notificacion.fecha,
-    hora: notificacion.hora,
-    idCazador: path.substring(path.lastIndexOf('/') + 1),
-    nombreCazador: nombreCazador,
-    idProveedor: notificacion.idProveedor,
-    nombreProveedor: notificacion.nombreProveedor
-  })
-  console.log(body)
-  fetch(`/talento/${notificacion.idProveedor}/notificaciones`, {
-    method: "POST",
-    body: body,
-    headers:{          
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    }
-  })
-  fetch(`${window.location.pathname}/notificaciones/${notificacion.id}`,{
-    method: 'DELETE'
-  })
-  postNotificacionGeneralCazador(notificacion, 'posible-contrato')
-  window.location.reload();
+    body = JSON.stringify({
+        type: 'confirmacion',
+        id: notificacion.id,
+        idProyecto: notificacion.idProyecto,
+        nombreProyecto: notificacion.nombreProyecto,
+        fecha: notificacion.fecha,
+        hora: notificacion.hora,
+        idCazador: path.substring(path.lastIndexOf('/') + 1),
+        nombreCazador: nombreCazador
+    })
+    console.log(body)
+    fetch(`/talento/${notificacion.idProveedor}/notificaciones`, {
+        method: "POST",
+        body: body,
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    })
+    fetch(`${window.location.pathname}/notificaciones/${notificacion.id}`, {
+        method: 'DELETE'
+    })
+    togglePopUp(notificacion.id);
+    window.location.reload();
 }
 
-const sendNuevaPropuestaProveedor = async (event) => {
-  let notificacion = event.data
-  const datos = await fetch(`/${path.substring(path.lastIndexOf('/') + 1)}/account`)
-  let nombreProveedor = await datos.json()
+const sendNuevaPropuestaProveedor = async(event) => {
+    let notificacion = event.data
+    const datos = await fetch(`/${path.substring(path.lastIndexOf('/') + 1)}/account`)
+    let nombreProveedor = await datos.json()
 
-  body = JSON.stringify({
-    type: 'nueva-propuesta',
-    id: notificacion.id,
-    idProyecto: notificacion.idProyecto,
-    idProveedor: path.substring(path.lastIndexOf('/') + 1),
-    nombreProveedor: nombreProveedor,
-    nombreProyecto: notificacion.nombreProyecto,
-    fecha: $(`#${notificacion.id} #fecha-cita`).val(),
-    hora: $(`#${notificacion.id} #hora-cita`).val(),
-    idCazador: notificacion.idCazador,
-    nombreCazador: notificacion.nombreCazador
-  })
-  fetch(`/cazador/${notificacion.idCazador}/notificaciones`, {
-    method: "POST",
-    body: body,
-    headers:{          
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    }
-  })
-  fetch(`${window.location.pathname}/notificaciones/${notificacion.id}`, {
-    method: "DELETE"
-  });
-  togglePopUp(notificacion.id);
-  window.location.reload();
+    body = JSON.stringify({
+        type: 'nueva-propuesta',
+        id: notificacion.id,
+        idProyecto: notificacion.idProyecto,
+        idProveedor: path.substring(path.lastIndexOf('/') + 1),
+        nombreProveedor: nombreProveedor,
+        nombreProyecto: notificacion.nombreProyecto,
+        fecha: $(`#${notificacion.id} #fecha-cita`).val(),
+        hora: $(`#${notificacion.id} #hora-cita`).val()
+    })
+    fetch(`/cazador/${notificacion.idCazador}/notificaciones`, {
+        method: "POST",
+        body: body,
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    })
+    fetch(`${window.location.pathname}/notificaciones/${notificacion.id}`, {
+        method: "DELETE"
+    });
+    togglePopUp(notificacion.id);
+    window.location.reload();
 }
 
-const sendNuevaPropuestaCazador = async (event) => {
-  let notificacion = event.data
-  const datos = await fetch(`/${path.substring(path.lastIndexOf('/') + 1)}/account`)
-  let nombreCazador = await datos.json()
+const sendNuevaPropuestaCazador = async(event) => {
+    let notificacion = event.data
+    const datos = await fetch(`/${path.substring(path.lastIndexOf('/') + 1)}/account`)
+    let nombreCazador = await datos.json()
 
-  body = JSON.stringify({
-    type: 'nueva-propuesta',
-    id: notificacion.id,
-    idProyecto: notificacion.idProyecto,
-    idCazador: path.substring(path.lastIndexOf('/') + 1),
-    nombreCazador: nombreCazador,
-    idProveedor: notificacion.idProveedor,
-    nombreProveedor: notificacion.nombreProveedor,
-    nombreProyecto: notificacion.nombreProyecto,
-    fecha: $(`#${notificacion.id} #fecha-cita`).val(),
-    hora: $(`#${notificacion.id} #hora-cita`).val()
-  })
-  fetch(`/talento/${notificacion.idProveedor}/notificaciones`, {
-    method: "POST",
-    body: body,
-    headers:{          
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    }
-  })
-  fetch(`${window.location.pathname}/notificaciones/${notificacion.id}`, {
-    method: "DELETE"
-  });
-  togglePopUp(notificacion.id);
-  window.location.reload();
+    body = JSON.stringify({
+        type: 'nueva-propuesta',
+        id: notificacion.id,
+        idProyecto: notificacion.idProyecto,
+        idCazador: path.substring(path.lastIndexOf('/') + 1),
+        nombreCazador: nombreCazador,
+        nombreProyecto: notificacion.nombreProyecto,
+        fecha: $(`#${notificacion.id} #fecha-cita`).val(),
+        hora: $(`#${notificacion.id} #hora-cita`).val()
+    })
+    fetch(`/talento/${notificacion.idProveedor}/notificaciones`, {
+        method: "POST",
+        body: body,
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    })
+    fetch(`${window.location.pathname}/notificaciones/${notificacion.id}`, {
+        method: "DELETE"
+    });
+    togglePopUp(notificacion.id);
+    window.location.reload();
 }
 
 const handleNotificacionRechazo = (event) => {
-  let notificacion = event.data
-  fetch(`${window.location.pathname}/notificaciones/${notificacion.id}`, {
-    method: "DELETE"
-  });
-  togglePopUp(notificacion.id);
-  window.location.reload();
+    let notificacion = event.data
+    fetch(`${window.location.pathname}/notificaciones/${notificacion.id}`, {
+        method: "DELETE"
+    });
+    togglePopUp(notificacion.id);
+    window.location.reload();
 }
 
 const mostrarNotificacionesCazador = (datos) => {
-  datos.forEach(notificacion => {
-    $('.notifi-box').append(
-      `<div class="notifi-item" onclick="togglePopUp('${notificacion.id}')">
+    datos.forEach(notificacion => {
+        $('.notifi-box').append(
+            `<div class="notifi-item" onclick="togglePopUp('${notificacion.id}')">
         <img src="/Img/perfil2.jpg" alt="img">
         <div class="text">
           <h4>${notificacion.nombreProveedor}</h4>
           <p>${notificacion.idProveedor}</p>
         </div>
       </div>`
-    )
+        )
 
-    if (notificacion.type === 'postulacion') {
-      $('.popups').append(
-        `<section class="form-bg" id="${notificacion.id}">
+        if (notificacion.type === 'postulacion') {
+            $('.popups').append(
+                `<section class="form-bg" id="${notificacion.id}">
           <div class="form">
   
               <h2 class="create">¡Nueva postulación!</h2>
               <div class="center-p">
-                  <p><a href="">${notificacion.nombreProveedor}</a> se ha postulado al <a href="">${notificacion.nombreProyecto}</a>. Si le interesa su perfil, ¡proponga una cita!</p>
+                  <p>${notificacion.nombreProveedor} con un costo por hora de ${notificacion.costoHora} con una reputacion de ${notificacion.reputation} se ha postulado al <a href="">${notificacion.nombreProyecto}</a>. Si le interesa su perfil, ¡proponga una cita!</p>
               </div>
               <form class="form-content-date" onsubmit="return false">
   
@@ -328,12 +317,12 @@ const mostrarNotificacionesCazador = (datos) => {
               </form>
           </div>
         </section>`
-      )
-      $(`#${notificacion.id} .form-sign-up`).click(notificacion, sendNotificacionPropuesta);
-      $(`#${notificacion.id} .negation`).click(notificacion, sendNotificacionRechazo);
-    } else if (notificacion.type === 'confirmacion') {
-      $('.popups').append(
-        `<section class="form-bg" id="${notificacion.id}">
+            )
+            $(`#${notificacion.id} .form-sign-up`).click(notificacion, sendNotificacionPropuesta);
+            $(`#${notificacion.id} .negation`).click(notificacion, sendNotificacionRechazo);
+        } else if (notificacion.type === 'confirmacion') {
+            $('.popups').append(
+                `<section class="form-bg" id="${notificacion.id}">
           <div class="form">
               <h2 class="create">¡Cita confirmada!</h2>
               <div class="center-p">
@@ -355,11 +344,11 @@ const mostrarNotificacionesCazador = (datos) => {
               </form>
           </div>
         </section>`
-      )
-      $(`#${notificacion.id} .button`).click(notificacion, handleConfirmacion);
-    } else if (notificacion.type === 'nueva-propuesta') {
-      $('.popups').append(
-        `<section class="form-bg" id="${notificacion.id}">
+            )
+            $(`#${notificacion.id} .button`).click(notificacion, handleConfirmacion);
+        } else if (notificacion.type === 'nueva-propuesta') {
+            $('.popups').append(
+                `<section class="form-bg" id="${notificacion.id}">
           <div class="form">
               <h2 class="create">¡Nueva Propuesta de Cita!</h2>
               <div class="center-p">
@@ -505,20 +494,20 @@ const mostrarNotificacionesCazador = (datos) => {
 }
 
 const mostrarNotificacionesTalento = (datos) => {
-  datos.forEach(notificacion => {
-    $('.notifi-box').append(
-      `<div class="notifi-item" onclick="togglePopUp('${notificacion.id}')">
+    datos.forEach(notificacion => {
+        $('.notifi-box').append(
+            `<div class="notifi-item" onclick="togglePopUp('${notificacion.id}')">
         <img src="/Img/perfil2.jpg" alt="img">
         <div class="text">
           <h4>${notificacion.nombreCazador}</h4>
           <p>${notificacion.idCazador}</p>
         </div>
       </div>`
-    )
+        )
 
-    if (notificacion.type === 'propuesta') {
-      $('.popups').append(
-        `<section class="form-bg" id="${notificacion.id}">
+        if (notificacion.type === 'propuesta') {
+            $('.popups').append(
+                `<section class="form-bg" id="${notificacion.id}">
           <div class="form">
               <h2 class="create">¡Postulación aceptada!</h2>
               <div class="center-p">
@@ -564,13 +553,13 @@ const mostrarNotificacionesTalento = (datos) => {
               </form>
           </div>
         </section>`
-      )
-      $(`#${notificacion.id} .form-sign-up`).click(notificacion, handleRespuestaPropuestaProveedor);
-      $(`#${notificacion.id} .cazador-form`).click({id: notificacion.id, show: false}, toggleNuevaPropuesta)
-      $(`#${notificacion.id} .proveedor-form`).click({id: notificacion.id, show: true}, toggleNuevaPropuesta)
-    } else if (notificacion.type === 'rechazo') {
-      $('.popups').append(
-        `<section class="form-bg" id="${notificacion.id}">
+            )
+            $(`#${notificacion.id} .form-sign-up`).click(notificacion, handleRespuestaPropuestaProveedor);
+            $(`#${notificacion.id} .cazador-form`).click({ id: notificacion.id, show: false }, toggleNuevaPropuesta)
+            $(`#${notificacion.id} .proveedor-form`).click({ id: notificacion.id, show: true }, toggleNuevaPropuesta)
+        } else if (notificacion.type === 'rechazo') {
+            $('.popups').append(
+                `<section class="form-bg" id="${notificacion.id}">
           <div class="form" >
               <h2 class="create">¡Postulación rechazada!</h2>
               <div class="center-p">
@@ -592,11 +581,11 @@ const mostrarNotificacionesTalento = (datos) => {
               </form>
           </div>
         </section>`
-      )
-      $(`#${notificacion.id} .button`).click(notificacion, handleNotificacionRechazo);
-    } else if (notificacion.type === 'confirmacion') {
-      $('.popups').append(
-        `<section class="form-bg" id="${notificacion.id}">
+            )
+            $(`#${notificacion.id} .button`).click(notificacion, handleNotificacionRechazo);
+        } else if (notificacion.type === 'confirmacion') {
+            $('.popups').append(
+                `<section class="form-bg" id="${notificacion.id}">
           <div class="form">
               <h2 class="create">¡Cita confirmada!</h2>
               <div class="center-p">
@@ -618,11 +607,11 @@ const mostrarNotificacionesTalento = (datos) => {
               </form>
           </div>
         </section>`
-      )
-      $(`#${notificacion.id} .button`).click(notificacion, handleConfirmacion);
-    } else if (notificacion.type === 'nueva-propuesta') {
-      $('.popups').append(
-        `<section class="form-bg" id="${notificacion.id}">
+            )
+            $(`#${notificacion.id} .button`).click(notificacion, handleConfirmacion);
+        } else if (notificacion.type === 'nueva-propuesta') {
+            $('.popups').append(
+                `<section class="form-bg" id="${notificacion.id}">
           <div class="form">
               <h2 class="create">¡Nueva Propuesta de Cita!</h2>
               <div class="center-p">
@@ -742,72 +731,72 @@ const mostrarNotificacionesTalento = (datos) => {
   })
 }
 
-const postNotificacionGeneralCazador= async (notificacion, type) => {
-  body = JSON.stringify({
-    type: type,
-    id: notificacion.id + type,
-    idProyecto: notificacion.idProyecto,
-    nombreProyecto: notificacion.nombreProyecto,
-    idProveedor: notificacion.idProveedor,
-    nombreProveedor: notificacion.nombreProveedor,
-    idCazador: notificacion.idCazador,
-    nombreCazador: notificacion.nombreCazador
-  })
-  fetch(`/cazador/${notificacion.idCazador}/notificaciones`, {
-    method: "POST",
-    body: body,
-    headers:{          
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    }
-  })
-  fetch(`${window.location.pathname}/notificaciones/${notificacion.id}`,{
-    method: 'DELETE'
-  })
-  window.location.reload()
+const postNotificacionGeneralCazador = async(notificacion, type) => {
+    body = JSON.stringify({
+        type: type,
+        id: notificacion.id + type,
+        idProyecto: notificacion.idProyecto,
+        nombreProyecto: notificacion.nombreProyecto,
+        idProveedor: notificacion.idProveedor,
+        nombreProveedor: notificacion.nombreProveedor,
+        idCazador: notificacion.idCazador,
+        nombreCazador: notificacion.nombreCazador
+    })
+    fetch(`/cazador/${notificacion.idCazador}/notificaciones`, {
+        method: "POST",
+        body: body,
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    })
+    fetch(`${window.location.pathname}/notificaciones/${notificacion.id}`, {
+        method: 'DELETE'
+    })
+    window.location.reload()
 }
 
-const handlePosibleContratoCazador = async (event) => {
-  let notificacion = event.data
-  
-  if ($(`#${notificacion.id} .accept-date`).is(':checked')) {
-    postNotificacionGeneralTalento(notificacion, 'oferta-contrato');
-  } else if ($(`#${notificacion.id} .change-date`).is(':checked')) {
-    sendNotificacionRechazo(event)
-  }
+const handlePosibleContratoCazador = async(event) => {
+    let notificacion = event.data
+
+    if ($(`#${notificacion.id} .accept-date`).is(':checked')) {
+        postNotificacionGeneralTalento(notificacion, 'oferta-contrato');
+    } else if ($(`#${notificacion.id} .change-date`).is(':checked')) {
+        sendNotificacionRechazo(event)
+    }
 }
 
-const postNotificacionGeneralTalento = async (notificacion, type) => {
-  body = JSON.stringify({
-    type: type,
-    id: notificacion.id + type,
-    idProyecto: notificacion.idProyecto,
-    nombreProyecto: notificacion.nombreProyecto,
-    idProveedor: notificacion.idProveedor,
-    nombreProveedor: notificacion.nombreProveedor,
-    idCazador: notificacion.idCazador,
-    nombreCazador: notificacion.nombreCazador
-  })
-  fetch(`/talento/${notificacion.idProveedor}/notificaciones`, {
-    method: "POST",
-    body: body,
-    headers:{          
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    }
-  })
-  fetch(`${window.location.pathname}/notificaciones/${notificacion.id}`,{
-    method: 'DELETE'
-  })
-  window.location.reload()
+const postNotificacionGeneralTalento = async(notificacion, type) => {
+    body = JSON.stringify({
+        type: type,
+        id: notificacion.id + type,
+        idProyecto: notificacion.idProyecto,
+        nombreProyecto: notificacion.nombreProyecto,
+        idProveedor: notificacion.idProveedor,
+        nombreProveedor: notificacion.nombreProveedor,
+        idCazador: notificacion.idCazador,
+        nombreCazador: notificacion.nombreCazador
+    })
+    fetch(`/talento/${notificacion.idProveedor}/notificaciones`, {
+        method: "POST",
+        body: body,
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    })
+    fetch(`${window.location.pathname}/notificaciones/${notificacion.id}`, {
+        method: 'DELETE'
+    })
+    window.location.reload()
 }
 
 const handlePosibleContratoProveedor = (event) => {
-  let notificacion = event.data
-  if ($(`#${notificacion.id} .accept-date`).is(':checked')) {
-    postNotificacionGeneralCazador(notificacion, 'oferta-aceptada');
-    postNotificacionGeneralCazador(notificacion, 'review-proveedor');
-  }
+    let notificacion = event.data
+    if ($(`#${notificacion.id} .accept-date`).is(':checked')) {
+        postNotificacionGeneralCazador(notificacion, 'oferta-aceptada');
+        postNotificacionGeneralCazador(notificacion, 'review-proveedor');
+    }
 }
 
 const handleEvaluacionCazador = event => {
@@ -831,9 +820,8 @@ const handleEvaluacionProveedor = event => {
 
 
 let path = window.location.pathname
-if (path.includes('cazador')){
-  getNotificacionesCazador(path.substring(path.lastIndexOf('/') + 1)).then(datos => mostrarNotificacionesCazador(datos));
-} 
-else if (path.includes('talento')) {
-  getNotificacionesTalento(path.substring(path.lastIndexOf('/') + 1)).then(datos => mostrarNotificacionesTalento(datos));
+if (path.includes('cazador')) {
+    getNotificacionesCazador(path.substring(path.lastIndexOf('/') + 1)).then(datos => mostrarNotificacionesCazador(datos));
+} else if (path.includes('talento')) {
+    getNotificacionesTalento(path.substring(path.lastIndexOf('/') + 1)).then(datos => mostrarNotificacionesTalento(datos));
 }
