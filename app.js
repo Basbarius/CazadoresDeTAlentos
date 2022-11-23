@@ -73,8 +73,10 @@ app.delete('/talento/:id/notificaciones/:idNotificacion', deleteNotificacionTale
 
 app.get('/proyectos', getProyectos)
 app.get('/proyectos/:id', getProyectos)
+app.get('/speed-date', getSpeedDate)
 app.post('/proyectos/:id', postNuevoProyecto)
 app.put('/proyectos/:id/:status', putStatusProyecto)
+app.get('/proyectos/:idCazador', getNoProyectosCazador)
 
 app.listen(3000, function() {
     console.log("Running Express");

@@ -125,9 +125,9 @@ const mostrarProyectoCazador = (proyectos) => {
                             </div>
                         </div>
                         <div class="confirmation-container">
-                            <button type="submit" class="button negation" onclick="togglePopUp('${proyecto.idProyecto}-horarios')">
+                            <button class="button negation" onclick="togglePopUp('${proyecto.idProyecto}-horarios')">
                                 Cancelar</button>
-                            <button type="submit" class="button form-sign-up">
+                            <button class="button form-sign-up">
                                 Proponer cita </button>
                         </div>
                         <div class="close-form" onclick="togglePopUp('${proyecto.idProyecto}-horarios')">
@@ -147,13 +147,17 @@ const mostrarProyectoCazador = (proyectos) => {
 
 const mostrarProyectoTalento= (proyectos) => {
     proyectos.forEach(proyecto => {
+        let claseStatus = 'wait'
+        if (proyecto.status === 'disponible') {
+            claseStatus = 'delivered'
+        }
         $('.proyectos-body').append(
             `<tr id="${proyecto.idProyecto}">
                 <td>${proyecto.nombreProyecto}</td>
                 <td>${proyecto.giro}</td>
                 <td>${proyecto.coordenadas}</td>
                 <td>${proyecto.cuota}</td>
-                <td><span class="status delivered">${proyecto.status}</span></td>
+                <td><span class="status ${claseStatus}">${proyecto.status}</span></td>
                 <td><button class="inscrip">Inscribirse</button></td>
             </tr>`
         )
@@ -186,6 +190,50 @@ const enviarProyectoTalento = (datos) => {
             </div>`
         )
     });
+}
+
+const postSpeedDate = (event) => {
+    let proyecto = event.data 
+    
+    let id = proyecto.idProyecto + path.substring(path.lastIndexOf('/') + 1)
+    id = id.replace('@', '-')
+
+    let fecha = ''
+    let hora = ''
+    if ($('#fecha-hora-1').is(':checked')) {
+        fecha = proyecto.horarios.fecha1
+        hora = proyecto.horarios.horario1
+    } else if ($('#fecha-hora-2').is(':checked')) {
+        fecha = proyecto.horarios.fecha2
+        hora = proyecto.horarios.horario2
+    } else if ($('#fecha-hora-3').is(':checked')) {
+        fecha = proyecto.horarios.fecha3
+        hora = proyecto.horarios.horario3
+    }
+
+    sendConfirmacionCitaProveedor({
+        data: {
+            id: id,
+            idProyecto: proyecto.idProyecto,
+            nombreProyecto: proyecto.nombreProyecto,
+            fecha: fecha,
+            hora: hora,
+            idCazador: proyecto.idCazador
+        }
+    });
+    window.location.reload()
+}
+
+const searchSpeedDate = async () => {
+    let datos = await fetch('/speed-date')    
+    let proyecto = await datos.json()
+    $('#anchor-project-name').text(`${proyecto.nombreProyecto}`)
+    $('.f1').text(`${proyecto.horarios.fecha1}, ${proyecto.horarios.horario1}`)
+    $('.f2').text(`${proyecto.horarios.fecha2}, ${proyecto.horarios.horario2}`)
+    $('.f3').text(`${proyecto.horarios.fecha3}, ${proyecto.horarios.horario3}`)
+
+    $('#hacer-cita').click(proyecto, postSpeedDate)
+    togglePopUp('form-bg-speed-date')
 }
 
 path = window.location.pathname

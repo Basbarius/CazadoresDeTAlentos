@@ -5,9 +5,16 @@ var proyectosExistentes = [
         giro: 'Se trata de una organización sin fines de lucro que se encarga de ayudar a las comunidades rurales más vulnerables de México a través de distintos programas de apoyo que son financiados a través de donaciones, dichos recursos provienen de todos aquellos que deciden convertirse en colaboradores de la organización.',
         coordenadas: 'La Otra Banda 54-Casa C, 01000 Ciudad de México, Ciudad de México',
         cuota: '$100.90',
-        status: 'ninguno',
+        status: 'disponible',
         idCazador: '@bas',
-        horarios: {}
+        horarios: {
+            fecha1: '2022-11-03',
+            fecha2: '2022-11-11',
+            fecha3: '2022-12-08',
+            horario1: '18:15',
+            horario2: '18:18',
+            horario3: '18:20'
+          }
     },
     {
         idProyecto: 'proyectoconsulting',
@@ -35,10 +42,21 @@ const getProyectos = function(request, response) {
     }
 }
 
+const getNoProyectosCazador = function(idCazador){
+    let proyectos = [];
+    proyectosExistentes.forEach(proyecto => {
+        if (proyecto.idCazador === idCazador) {
+            proyectos.push(proyecto)
+        }
+    })
+    return proyectos.length
+}
+
 const postNuevoProyecto = (request, response) => {
     let proyectoNuevo = request.body;
     console.log(proyectoNuevo)
-    let cuota = '$100.00';
+    let noProyectos = getNoProyectosCazador(request.params.id)
+    cuota = `$${(100-noProyectos*5)}`
     proyectosExistentes.unshift({
         idProyecto: proyectoNuevo.nombreProyecto.replace(/\s/g, '').toLowerCase(),
         nombreProyecto: proyectoNuevo.nombreProyecto,
@@ -64,6 +82,17 @@ const putStatusProyecto = (request, response) => {
     })
 }
 
+const getSpeedDate = (request, response) => {
+    let proyectosCandidatos = []
+    proyectosExistentes.forEach(proyecto => {
+        if (proyecto.status === 'disponible') {
+            proyectosCandidatos.push(proyecto);
+        }
+    })
+    let index = Math.floor(Math.random() * proyectosCandidatos.length)
+    response.json(proyectosCandidatos[index])
+}
+
 const getNameProyectoFromID = function(request, response) {
     let proyectos = [];
     proyectosExistentes.forEach(proyecto => {
@@ -81,5 +110,5 @@ const getProyectoInfo = function(request, response) {
 
 
 module.exports = {
-    getProyectos, postNuevoProyecto, getNameProyectoFromID, getProyectoInfo, putStatusProyecto
+    getProyectos, postNuevoProyecto, getNameProyectoFromID, getProyectoInfo, putStatusProyecto, getSpeedDate,getNoProyectosCazador
 }

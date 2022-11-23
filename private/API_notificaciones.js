@@ -148,9 +148,7 @@ const postNotificacionCazador = function(request, response) {
                     idProyecto: notificacionNueva.idProyecto,
                     nombreProyecto: notificacionNueva.nombreProyecto,
                     idProveedor: notificacionNueva.idProveedor,
-                    nombreProveedor: notificacionNueva.nombreProveedor,
-                    costoHora: notificacionNueva.costoHora,
-                    reputation: notificacionNueva.reputation
+                    nombreProveedor: notificacionNueva.nombreProveedor
                 })
             } else if (notificacionNueva.type === 'confirmacion') {
                 cazador.notificaciones.unshift({
