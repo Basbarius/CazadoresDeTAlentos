@@ -156,7 +156,6 @@ const mostrarProyectoTalento= (proyectos) => {
                 <td>${proyecto.nombreProyecto}</td>
                 <td>${proyecto.giro}</td>
                 <td>${proyecto.coordenadas}</td>
-                <td>${proyecto.cuota}</td>
                 <td><span class="status ${claseStatus}">${proyecto.status}</span></td>
                 <td><button class="inscrip">Inscribirse</button></td>
             </tr>`
