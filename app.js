@@ -21,8 +21,7 @@ const {
     getProyectos, 
     postNuevoProyecto,
     putStatusProyecto,
-    getNameProyectoFromID, 
-    getProyectoInfo
+    getSpeedDate
 } = require('./private/API_projects')
 
 /*----------------------------------------------------------------------------*/
@@ -71,6 +70,7 @@ app.delete('/talento/:id/notificaciones/:idNotificacion', deleteNotificacionTale
 
 app.get('/proyectos', getProyectos)
 app.get('/proyectos/:id', getProyectos)
+app.get('/speed-date', getSpeedDate)
 app.post('/proyectos/:id', postNuevoProyecto)
 app.put('/proyectos/:id/:status', putStatusProyecto)
 

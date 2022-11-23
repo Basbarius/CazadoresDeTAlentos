@@ -68,7 +68,10 @@
                     <div class="cardHeader">
                         <h2>Lista de proyectos</h2>
                         <!--<a href="#" class="btn"> Añadir proyecto</a>-->
-
+                        
+                        <div class="center">
+                            <button class="show-popup" id="show-popup" onclick="searchSpeedDate()">Encontrar Speed Date</button>
+                        </div>
                     </div>
                     <table>
                         <thead>
@@ -89,6 +92,38 @@
             </div>
         </div>
     </div>
+
+    <!-- Speed Date -->
+    <section class="form-bg" id="form-bg-speed-date">
+        <div class="form new-project">
+            <h2 class="create">¡Cita Encontrada!</h2>
+            <div class="center-p">
+                <p>Para realizar la cita con el responsable del proyecto <a href="" id="anchor-project-name">${proyecto.nombreProyecto}</a>, seleccione una de las tres opciones</p>
+            </div>
+            <form class="form-content" onsubmit="return false">
+                <div class="radio radio-cita">
+                    <input type="radio" name="usuario" class="accept-date" id="fecha-hora-1" required>
+                    <label for="fecha-hora-1" class="cazador-form f1">${proyecto.fecha1}, ${proyecto.hora1}</label>
+
+                    <input type="radio" name="usuario" class="change-date" id="fecha-hora-2" required>
+                    <label for="fecha-hora-2" class="proveedor-form f2">${proyecto.fecha2}, ${proyecto.hora2}</label>
+
+                    <input type="radio" name="usuario" class="change-date" id="fecha-hora-3" required>
+                    <label for="fecha-hora-3" class="proveedor-form f3">${proyecto.fecha2}, ${proyecto.hora2}</label>
+                </div>
+
+                <button class="button form-sign-up" id="hacer-cita">Aceptar Cita</button>
+
+                <div class="close-form" onclick="togglePopUp('form-bg-speed-date')">
+                    <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <polygon fill="inherit"
+                            points="11.649 9.882 18.262 3.267 16.495 1.5 9.881 8.114 3.267 1.5 1.5 3.267 8.114 9.883 1.5 16.497 3.267 18.264 9.881 11.65 16.495 18.264 18.262 16.497">
+                        </polygon>
+                    </svg>
+                </div>
+            </form>
+        </div>
+    </section>
 
     <div class="popups">
         

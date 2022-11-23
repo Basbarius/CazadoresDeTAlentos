@@ -149,6 +149,7 @@ const sendConfirmacionCitaProveedor = async (event) => {
     idProveedor: path.substring(path.lastIndexOf('/') + 1),
     nombreProveedor: nombreProveedor
   })
+  console.log(body)
   fetch(`/cazador/${notificacion.idCazador}/notificaciones`, {
     method: "POST",
     body: body,
@@ -160,7 +161,6 @@ const sendConfirmacionCitaProveedor = async (event) => {
   fetch(`${window.location.pathname}/notificaciones/${notificacion.id}`,{
     method: 'DELETE'
   })
-  togglePopUp(notificacion.id);
   window.location.reload();
 }
 
