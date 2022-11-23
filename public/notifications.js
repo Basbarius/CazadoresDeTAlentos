@@ -89,7 +89,9 @@ const sendNotificacionPostulacion = async(event) => {
     let userReputation = await reputation.json()
     let id = notificacion.idProyecto + path.substring(path.lastIndexOf('/') + 1)
     id = id.replace('@', '-')
-    console.log(userReputation)
+    if (userReputation === null) {
+      userReputation = 1
+    }
 
     body = JSON.stringify({
         type: 'postulacion',
@@ -97,7 +99,8 @@ const sendNotificacionPostulacion = async(event) => {
         idProyecto: notificacion.idProyecto,
         nombreProyecto: notificacion.nombreProyecto,
         idProveedor: path.substring(path.lastIndexOf('/') + 1),
-        nombreProveedor: nombreProveedor
+        nombreProveedor: usuario[0].nombre,
+        reputation: userReputation
     })
     console.log(body)
     fetch(`/cazador/${notificacion.idCazador}/notificaciones`, {
@@ -278,12 +281,12 @@ const mostrarNotificacionesCazador = (datos) => {
     datos.forEach(notificacion => {
         $('.notifi-box').append(
             `<div class="notifi-item" onclick="togglePopUp('${notificacion.id}')">
-        <img src="/Img/perfil2.jpg" alt="img">
-        <div class="text">
-          <h4>${notificacion.nombreProveedor}</h4>
-          <p>${notificacion.idProveedor}</p>
-        </div>
-      </div>`
+              <img src="/Img/perfil2.jpg" alt="img">
+              <div class="text">
+                <h4>${notificacion.nombreProveedor}</h4>
+                <p>${notificacion.idProveedor}</p>
+              </div>
+            </div>`
         )
 
         if (notificacion.type === 'postulacion') {

@@ -7,7 +7,16 @@ var cuentasExistentes = [{
         capacidades: 'Diseñador',
         costoH: '10',
         estado: 'Jalisco',
-        reputacion: [5, 4, 3]
+        reputacion: [
+            {
+                reputation: 5,
+                fecha: '2022-11-03'
+            },
+            {
+                reputation: 4,
+                fecha: '2022-11-04'
+            }
+        ]
     },
     {
         nombre: 'Dulce Maria',
@@ -18,7 +27,12 @@ var cuentasExistentes = [{
         capacidades: 'Creadora de videojuegos',
         costoH: '100',
         estado: 'Baja california',
-        reputacion: [5]
+        reputacion: [
+            {
+                reputation: 5,
+                fecha: '2022-11-03'
+            }
+        ]
     },
     {
         nombre: 'Alejandro Olvida',
@@ -29,7 +43,16 @@ var cuentasExistentes = [{
         capacidades: 'Creadora de videojuegos',
         costoH: '100',
         estado: 'Baja california',
-        reputacion: [2]
+        reputacion: [
+            {
+                reputation: 2,
+                fecha: '2022-11-03'
+            },
+            {
+                reputation: 3,
+                fecha: '2022-11-13'
+            }
+        ]
     }
 ]
 
@@ -54,10 +77,10 @@ const avgReputation = function(request, response) {
     cuentasExistentes.forEach(user => {
         if (user.userID === request.params.id) {
             usuarios = user.reputacion;
-            for (let i = 0; i < user.reputacion.length; i++) {
-                sum += usuarios[i];
-            }
-            resultAvg = sum / user.reputacion.length
+            usuarios.forEach(usuario => {
+                sum += usuario.reputation
+            })
+            resultAvg = sum / usuarios.length
         }
     })
     response.json(resultAvg)

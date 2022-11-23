@@ -7,7 +7,8 @@ let notificacionesCazador = [{
             nombreProyecto: 'Proyecto 1',
             idProveedor: '@alejandro',
             nombreProveedor: 'Alejandro Oliva',
-            costoHora: '500'
+            costoHora: '500',
+            reputation: [2]
         },
         {
             type: 'postulacion',
@@ -17,6 +18,7 @@ let notificacionesCazador = [{
             idProveedor: '@dulce',
             nombreProveedor: 'Dulce Garcia',
             costoHora: '100',
+            reputation: [5]
         }
     ]
 }]
@@ -162,7 +164,8 @@ const postNotificacionCazador = function(request, response) {
                     idProyecto: notificacionNueva.idProyecto,
                     nombreProyecto: notificacionNueva.nombreProyecto,
                     idProveedor: notificacionNueva.idProveedor,
-                    nombreProveedor: notificacionNueva.nombreProveedor
+                    nombreProveedor: notificacionNueva.nombreProveedor,
+                    reputation: notificacionNueva.reputation
                 })
             } else if (notificacionNueva.type === 'confirmacion') {
                 cazador.notificaciones.unshift({
