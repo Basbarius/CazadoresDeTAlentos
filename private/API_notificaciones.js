@@ -133,6 +133,8 @@ const postNotificacionTalento = function(request, response) {
                     nombreProyecto: notificacionNueva.nombreProyecto,
                     idCazador: notificacionNueva.idCazador,
                     nombreCazador: notificacionNueva.nombreCazador,
+                    idProveedor: notificacionNueva.idProveedor,
+                    nombreProveedor: notificacionNueva.nombreProveedor,
                     fecha: notificacionNueva.fecha,
                     hora: notificacionNueva.hora
                 })
@@ -188,6 +190,8 @@ const postNotificacionCazador = function(request, response) {
                     nombreProyecto: notificacionNueva.nombreProyecto,
                     idProveedor: notificacionNueva.idProveedor,
                     nombreProveedor: notificacionNueva.nombreProveedor,
+                    idCazador: notificacionNueva.idCazador,
+                    nombreCazador: notificacionNueva.nombreCazador,
                     fecha: notificacionNueva.fecha,
                     hora: notificacionNueva.hora
                 })

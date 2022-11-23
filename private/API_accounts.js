@@ -116,7 +116,6 @@ const postReview = function(request, response) {
                 reputation: score,
                 fecha: currentDate
             })
-            console.log(cuenta)
         }
     })
 }

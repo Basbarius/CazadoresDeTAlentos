@@ -505,6 +505,11 @@ table {
     margin-top: 10px;
 }
 
+.notifi-item .text h5 {
+    color: white;
+    font-size: 14px;
+}
+
 .notifi-item .text p {
     color: white;
     font-size: 12px;
