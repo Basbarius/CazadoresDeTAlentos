@@ -42,10 +42,21 @@ const getProyectos = function(request, response) {
     }
 }
 
+const getNoProyectosCazador = function(idCazador){
+    let proyectos = [];
+    proyectosExistentes.forEach(proyecto => {
+        if (proyecto.idCazador === idCazador) {
+            proyectos.push(proyecto)
+        }
+    })
+    return proyectos.length
+}
+
 const postNuevoProyecto = (request, response) => {
     let proyectoNuevo = request.body;
     console.log(proyectoNuevo)
-    let cuota = '$100.00';
+    let noProyectos = getNoProyectosCazador(request.params.id)
+    cuota = `$${(100-noProyectos*5)}`
     proyectosExistentes.unshift({
         idProyecto: proyectoNuevo.nombreProyecto.replace(/\s/g, '').toLowerCase(),
         nombreProyecto: proyectoNuevo.nombreProyecto,
@@ -99,5 +110,5 @@ const getProyectoInfo = function(request, response) {
 
 
 module.exports = {
-    getProyectos, postNuevoProyecto, getNameProyectoFromID, getProyectoInfo, putStatusProyecto, getSpeedDate
+    getProyectos, postNuevoProyecto, getNameProyectoFromID, getProyectoInfo, putStatusProyecto, getSpeedDate,getNoProyectosCazador
 }
