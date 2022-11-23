@@ -22,6 +22,8 @@ const sendNotificacionPropuesta = async (event) => {
     idCazador: path.substring(path.lastIndexOf('/') + 1),
     nombreCazador: nombreCazador,
     nombreProyecto: notificacion.nombreProyecto,
+    idProveedor: notificacion.idProveedor,
+    nombreProveedor: notificacion.nombreProveedor,
     fecha: $(`#${notificacion.id} #fecha-cita`).val(),
     hora: $(`#${notificacion.id} #hora-cita`).val()
   })
@@ -52,6 +54,7 @@ const sendNotificacionRechazo = async (event) => {
       idCazador: path.substring(path.lastIndexOf('/') + 1),
       nombreCazador: nombreCazador,
       nombreProyecto: notificacion.nombreProyecto,
+      idProveedor: notificacion.idProveedor
     })
     fetch(`/talento/${notificacion.idProveedor}/notificaciones`, {
       method: "POST",
@@ -92,7 +95,8 @@ const sendNotificacionPostulacion = async (event) => {
     idProyecto: notificacion.idProyecto,
     nombreProyecto: notificacion.nombreProyecto,
     idProveedor: path.substring(path.lastIndexOf('/') + 1),
-    nombreProveedor: nombreProveedor
+    nombreProveedor: nombreProveedor,
+    idCazador: notificacion.idCazador
   })
   console.log(body)
   fetch(`/cazador/${notificacion.idCazador}/notificaciones`, {
@@ -137,7 +141,8 @@ const handleRespuestaPropuestaCazador = (event) => {
 const sendConfirmacionCitaProveedor = async (event) => {
   let notificacion = event.data
   const datos = await fetch(`/${path.substring(path.lastIndexOf('/') + 1)}/account`)
-  let nombreProveedor = await datos.json()
+  notificacion.nombreProveedor = await datos.json()
+  notificacion.idProveedor = path.substring(path.lastIndexOf('/') + 1)
 
   body = JSON.stringify({
     type: 'confirmacion',
@@ -146,8 +151,10 @@ const sendConfirmacionCitaProveedor = async (event) => {
     nombreProyecto: notificacion.nombreProyecto,
     fecha: notificacion.fecha,
     hora: notificacion.hora,
-    idProveedor: path.substring(path.lastIndexOf('/') + 1),
-    nombreProveedor: nombreProveedor
+    idProveedor: notificacion.idProveedor,
+    nombreProveedor: notificacion.nombreProveedor,
+    idCazador: notificacion.idCazador,
+    nombreCazador: notificacion.nombreCazador
   })
   console.log(body)
   fetch(`/cazador/${notificacion.idCazador}/notificaciones`, {
@@ -161,6 +168,7 @@ const sendConfirmacionCitaProveedor = async (event) => {
   fetch(`${window.location.pathname}/notificaciones/${notificacion.id}`,{
     method: 'DELETE'
   })
+  postNotificacionGeneralCazador(notificacion, 'posible-contrato')
   window.location.reload();
 }
 
@@ -177,7 +185,9 @@ const sendConfirmacionCitaCazador = async (event) => {
     fecha: notificacion.fecha,
     hora: notificacion.hora,
     idCazador: path.substring(path.lastIndexOf('/') + 1),
-    nombreCazador: nombreCazador
+    nombreCazador: nombreCazador,
+    idProveedor: notificacion.idProveedor,
+    nombreProveedor: notificacion.nombreProveedor
   })
   console.log(body)
   fetch(`/talento/${notificacion.idProveedor}/notificaciones`, {
@@ -191,7 +201,7 @@ const sendConfirmacionCitaCazador = async (event) => {
   fetch(`${window.location.pathname}/notificaciones/${notificacion.id}`,{
     method: 'DELETE'
   })
-  togglePopUp(notificacion.id);
+  postNotificacionGeneralCazador(notificacion, 'posible-contrato')
   window.location.reload();
 }
 
@@ -208,7 +218,9 @@ const sendNuevaPropuestaProveedor = async (event) => {
     nombreProveedor: nombreProveedor,
     nombreProyecto: notificacion.nombreProyecto,
     fecha: $(`#${notificacion.id} #fecha-cita`).val(),
-    hora: $(`#${notificacion.id} #hora-cita`).val()
+    hora: $(`#${notificacion.id} #hora-cita`).val(),
+    idCazador: notificacion.idCazador,
+    nombreCazador: notificacion.nombreCazador
   })
   fetch(`/cazador/${notificacion.idCazador}/notificaciones`, {
     method: "POST",
@@ -236,6 +248,8 @@ const sendNuevaPropuestaCazador = async (event) => {
     idProyecto: notificacion.idProyecto,
     idCazador: path.substring(path.lastIndexOf('/') + 1),
     nombreCazador: nombreCazador,
+    idProveedor: notificacion.idProveedor,
+    nombreProveedor: notificacion.nombreProveedor,
     nombreProyecto: notificacion.nombreProyecto,
     fecha: $(`#${notificacion.id} #fecha-cita`).val(),
     hora: $(`#${notificacion.id} #hora-cita`).val()
@@ -395,6 +409,92 @@ const mostrarNotificacionesCazador = (datos) => {
       $(`#${notificacion.id} .form-sign-up`).click(notificacion, handleRespuestaPropuestaCazador);
       $(`#${notificacion.id} .cazador-form`).click({id: notificacion.id, show: false}, toggleNuevaPropuesta)
       $(`#${notificacion.id} .proveedor-form`).click({id: notificacion.id, show: true}, toggleNuevaPropuesta)
+    }  else if (notificacion.type === 'posible-contrato') {
+      $('.popups').append(
+        `<section class="form-bg" id="${notificacion.id}">
+          <div class="form">
+              <h2 class="create">¡Cita Terminada!</h2>
+              <div class="center-p">
+                  <p>Le gustria hacer una oferta de trabajo por 6 meses a ${notificacion.nombreProveedor}?</p>
+              </div>
+              <form class="form-content-date" onsubmit="return false">
+                  <div class="radio radio-cita">
+                      <input type="radio" name="usuario" class="accept-date" id="cazador-form" required>
+                      <label for="cazador-form" class="cazador-form" onclick="hideOptions()">¡Definitivamente!</label>
+
+                      <input type="radio" name="usuario" class="change-date" id="proveedor-form" required>
+                      <label for="proveedor-form" class="proveedor-form" onclick="showOptions()">Mejor no</label>
+                  </div>
+                  <div class="confirmation-container">
+                      <button type="submit" class="button negation-talento" onclick="togglePopUp('${notificacion.id}')">
+                          Cancelar </button>
+                      <button type="submit" class="button form-sign-up" id="${notificacion.id}-ofrecer-contrato">
+                          Responder </button>
+                  </div>
+                  <div class="close-form" onclick="togglePopUp('${notificacion.id}'); hideOptions()">
+                      <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                          <polygon fill="inherit"
+                              points="11.649 9.882 18.262 3.267 16.495 1.5 9.881 8.114 3.267 1.5 1.5 3.267 8.114 9.883 1.5 16.497 3.267 18.264 9.881 11.65 16.495 18.264 18.262 16.497">
+                          </polygon>
+                      </svg>
+                  </div>
+              </form>
+          </div>
+        </section>`
+      )
+      $(`#${notificacion.id} .cazador-form`).click({id: notificacion.id, show: false}, toggleNuevaPropuesta)
+      $(`#${notificacion.id} .proveedor-form`).click({id: notificacion.id, show: true}, toggleNuevaPropuesta)
+      $(`#${notificacion.id}-ofrecer-contrato`).click(notificacion, handlePosibleContratoCazador)
+    } else if (notificacion.type === 'oferta-aceptada') {
+      $('.popups').append(
+        `<section class="form-bg" id="${notificacion.id}">
+          <div class="form">
+              <h2 class="create">Oferta de Contrato aceptada!</h2>
+              <div class="center-p">
+                  <p>${notificacion.nombreProveedor} ha aceptado el contrato para trabajar en proyecto <a href="">${notificacion.nombreProyecto}</a></p>
+              </div>
+              <form class="form-content-date" onsubmit="return false"> 
+                  <div class="confirmation-container">
+                      <button type="submit" class="button form-sign-up">
+                          Cerrar </button>
+                  </div>
+                  <div class="close-form" onclick="togglePopUp('${notificacion.id}'); hideOptions()">
+                      <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                          <polygon fill="inherit"
+                              points="11.649 9.882 18.262 3.267 16.495 1.5 9.881 8.114 3.267 1.5 1.5 3.267 8.114 9.883 1.5 16.497 3.267 18.264 9.881 11.65 16.495 18.264 18.262 16.497">
+                          </polygon>
+                      </svg>
+                  </div>
+              </form>
+          </div>
+        </section>`
+      )
+      $(`#${notificacion.id} .button`).click(notificacion, handleConfirmacion);
+    } else if (notificacion.type === 'review-proveedor') {
+      $('.popups').append(
+        `<section class="form-bg" id="${notificacion.id}">
+          <div class="form">
+              <h2 class="create">Trabajo terminado, hora de revisar!</h2>
+              <div class="center-p">
+                  <p>Califique del 1-5 a ${notificacion.nombreProveedor} sobre el trabajo realizado en <a href="">${notificacion.nombreProyecto}</a></p>
+              </div>
+              <form class="form-content-date" onsubmit="return false"> 
+                  <div class="confirmation-container">
+                      <button type="submit" class="button form-sign-up">
+                          Cerrar </button>
+                  </div>
+                  <div class="close-form" onclick="togglePopUp('${notificacion.id}'); hideOptions()">
+                      <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                          <polygon fill="inherit"
+                              points="11.649 9.882 18.262 3.267 16.495 1.5 9.881 8.114 3.267 1.5 1.5 3.267 8.114 9.883 1.5 16.497 3.267 18.264 9.881 11.65 16.495 18.264 18.262 16.497">
+                          </polygon>
+                      </svg>
+                  </div>
+              </form>
+          </div>
+        </section>`
+      )
+      $(`#${notificacion.id} .button`).click(notificacion, handleConfirmacion);
     }
   })
 }
@@ -567,9 +667,114 @@ const mostrarNotificacionesTalento = (datos) => {
       $(`#${notificacion.id} .form-sign-up`).click(notificacion, handleRespuestaPropuestaProveedor);
       $(`#${notificacion.id} .cazador-form`).click({id: notificacion.id, show: false}, toggleNuevaPropuesta)
       $(`#${notificacion.id} .proveedor-form`).click({id: notificacion.id, show: true}, toggleNuevaPropuesta)
+    }  else if (notificacion.type === 'oferta-contrato') {
+      $('.popups').append(
+        `<section class="form-bg" id="${notificacion.id}">
+          <div class="form">
+              <h2 class="create">¡Nueva Oferta de Contrato!</h2>
+              <div class="center-p">
+                  <p>${notificacion.nombreCazador}, el responsable de <a href="">${notificacion.nombreProyecto}</a> le ha ofrecido trabajar en el proyecto por 6 meses. Acepta? </p>
+              </div>
+              <form class="form-content-date" onsubmit="return false">
+                  <div class="radio radio-cita">
+                      <input type="radio" name="usuario" class="accept-date" id="cazador-form" required>
+                      <label for="cazador-form" class="cazador-form" onclick="hideOptions()">¡Definitivamente!</label>
+
+                      <input type="radio" name="usuario" class="change-date" id="proveedor-form" required>
+                      <label for="proveedor-form" class="proveedor-form" onclick="showOptions()">Mejor no</label>
+                  </div>
+                  <div class="confirmation-container">
+                      <button type="submit" class="button negation-talento" onclick="togglePopUp('${notificacion.id}')">
+                          Cancelar </button>
+                      <button type="submit" class="button form-sign-up" id="${notificacion.id}-ofrecer-contrato">
+                          Responder </button>
+                  </div>
+                  <div class="close-form" onclick="togglePopUp('${notificacion.id}'); hideOptions()">
+                      <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                          <polygon fill="inherit"
+                              points="11.649 9.882 18.262 3.267 16.495 1.5 9.881 8.114 3.267 1.5 1.5 3.267 8.114 9.883 1.5 16.497 3.267 18.264 9.881 11.65 16.495 18.264 18.262 16.497">
+                          </polygon>
+                      </svg>
+                  </div>
+              </form>
+          </div>
+        </section>`
+      )
+      $(`#${notificacion.id} .cazador-form`).click({id: notificacion.id, show: false}, toggleNuevaPropuesta)
+      $(`#${notificacion.id} .proveedor-form`).click({id: notificacion.id, show: true}, toggleNuevaPropuesta)
+      $(`#${notificacion.id}-ofrecer-contrato`).click(notificacion, handlePosibleContratoProveedor)
     }
   })
 }
+
+const postNotificacionGeneralCazador= async (notificacion, type) => {
+  body = JSON.stringify({
+    type: type,
+    id: notificacion.id + type,
+    idProyecto: notificacion.idProyecto,
+    nombreProyecto: notificacion.nombreProyecto,
+    idProveedor: notificacion.idProveedor,
+    nombreProveedor: notificacion.nombreProveedor,
+    idCazador: notificacion.idCazador,
+    nombreCazador: notificacion.nombreCazador
+  })
+  fetch(`/cazador/${notificacion.idCazador}/notificaciones`, {
+    method: "POST",
+    body: body,
+    headers:{          
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    }
+  })
+  fetch(`${window.location.pathname}/notificaciones/${notificacion.id}`,{
+    method: 'DELETE'
+  })
+  window.location.reload()
+}
+
+const handlePosibleContratoCazador = async (event) => {
+  let notificacion = event.data
+  
+  if ($(`#${notificacion.id} .accept-date`).is(':checked')) {
+    postNotificacionGeneralTalento(notificacion, 'oferta-contrato');
+  } else if ($(`#${notificacion.id} .change-date`).is(':checked')) {
+    sendNotificacionRechazo(event)
+  }
+}
+
+const postNotificacionGeneralTalento = async (notificacion, type) => {
+  body = JSON.stringify({
+    type: type,
+    id: notificacion.id + type,
+    idProyecto: notificacion.idProyecto,
+    nombreProyecto: notificacion.nombreProyecto,
+    idProveedor: notificacion.idProveedor,
+    nombreProveedor: notificacion.nombreProveedor,
+    idCazador: notificacion.idCazador,
+    nombreCazador: notificacion.nombreCazador
+  })
+  fetch(`/talento/${notificacion.idProveedor}/notificaciones`, {
+    method: "POST",
+    body: body,
+    headers:{          
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    }
+  })
+  fetch(`${window.location.pathname}/notificaciones/${notificacion.id}`,{
+    method: 'DELETE'
+  })
+  window.location.reload()
+}
+
+const handlePosibleContratoProveedor = (event) => {
+  let notificacion = event.data
+  if ($(`#${notificacion.id} .accept-date`).is(':checked')) {
+    postNotificacionGeneralCazador(notificacion, 'oferta-aceptada');
+    postNotificacionGeneralCazador(notificacion, 'review-proveedor');
+  }
+}
+
 
 let path = window.location.pathname
 if (path.includes('cazador')){

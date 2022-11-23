@@ -136,6 +136,17 @@ const postNotificacionTalento = function(request, response) {
           fecha: notificacionNueva.fecha,
           hora: notificacionNueva.hora
         })
+      } else {
+        talento.notificaciones.unshift({
+          type: notificacionNueva.type,
+          id: notificacionNueva.id,
+          idProyecto: notificacionNueva.idProyecto,
+          nombreProyecto: notificacionNueva.nombreProyecto,
+          idCazador: notificacionNueva.idCazador,
+          nombreCazador: notificacionNueva.nombreCazador,
+          nombreProveedor: notificacionNueva.nombreProveedor,
+          idProveedor: notificacionNueva.idProveedor
+        })
       }
     }
   })
@@ -143,6 +154,7 @@ const postNotificacionTalento = function(request, response) {
 
 const postNotificacionCazador = function(request, response) {
   let notificacionNueva = request.body;
+  console.log(notificacionNueva)
   notificacionesCazador.forEach(cazador => {
     if (cazador.idCazador === request.params.id) {
       if (notificacionNueva.type === 'postulacion') {
@@ -175,6 +187,17 @@ const postNotificacionCazador = function(request, response) {
           nombreProveedor: notificacionNueva.nombreProveedor,
           fecha: notificacionNueva.fecha,
           hora: notificacionNueva.hora
+        })
+      } else {
+        cazador.notificaciones.unshift({
+          type: notificacionNueva.type,
+          id: notificacionNueva.id,
+          idProyecto: notificacionNueva.idProyecto,
+          nombreProyecto: notificacionNueva.nombreProyecto,
+          idProveedor: notificacionNueva.idProveedor,
+          nombreProveedor: notificacionNueva.nombreProveedor,
+          idCazador: notificacionNueva.idCazador,
+          nombreCazador: notificacionNueva.nombreCazador
         })
       }
     }
